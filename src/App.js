@@ -4,6 +4,7 @@ import { Login } from './page/Login';
 import { SignUp } from './page/SignUp';
 import { Home } from './page/backOffices/Home';
 import { History } from './page/backOffices/history';
+import { AccessPage } from './page/main/AccessPage';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="signUp" element={<SignUp />}></Route>
         <Route path="homen" element={<Home />}></Route>
         <Route path="history" element={<History />}></Route>
+        <Route path="access" element={<AccessPage />}></Route>
       </Routes>
     </Router>
   </div>
