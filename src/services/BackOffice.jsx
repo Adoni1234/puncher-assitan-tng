@@ -40,3 +40,26 @@ export async function GetAgente(){
         throw new Error("Error en la solicitud: " + error.message);
     }
 }
+
+export async function CreateEmployee(data) {
+        try{
+            const response = fetch("https://localhost:7090/api/Backoffice/agente/crear", {
+                method : "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body : JSON.stringify(data)
+            })
+
+            if(!response.ok){
+                throw new Error("Error en la solicitud: " + response.status);
+            }
+
+            const responseData = await (response).json
+            return responseData
+        }
+        catch(error){
+            throw new Error("Error en la solicitud: " + error.message);
+        }
+    }
+

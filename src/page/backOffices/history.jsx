@@ -5,10 +5,11 @@ import { GetAgente, GetHistory } from "../../services/BackOffice";
 export function History() {
     const [agente, setAgente] = useState([])
     const [data, setData] = useState([]);
+
     const [filter, setFilter] = useState({
         employee : 'employee',
         since : "2024-05-01",
-        until : "2024-05-01",
+        until : "2024-05-14",
     })
     
     const handleChanges = (event) => {
@@ -19,13 +20,7 @@ export function History() {
        }))
     }
      
-    const reset_variable = () => {
-        setFilter({
-         employee : "",
-         since : "",
-         until : "",
-        })
-    }
+
 
     const handleChangeAndQuery = (event) => {
         handleChanges(event);

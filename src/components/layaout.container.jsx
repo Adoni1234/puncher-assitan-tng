@@ -1,6 +1,19 @@
+import { useEffect, useState } from 'react';
+import { GetSessionStore } from '../utilitis/utils';
 
 
 export function LayoutContainer() {
+  const [username, setUsername] = useState('') ;
+
+  useEffect(() => {
+    lookFor();
+   }, []);
+
+   const lookFor = () => {
+    const profile = GetSessionStore();
+      setUsername(profile) 
+    }
+
     return (
       <div>
         <nav className="flex justify-between bg-gray-900 text-white w-screen">
@@ -11,9 +24,12 @@ export function LayoutContainer() {
             <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
               <li><a href="/homen" className="hover:text-gray-200" >BackOffice</a></li>
               <li><a href="/history" className="hover:text-gray-200" >Historial</a></li>
-              <li><a className="hover:text-gray-200" href="f">Collections</a></li>
+              <li><a className="hover:text-gray-200" href="/agente">Adm. Empleados </a></li>
+              <li><a className="hover:text-gray-200" href="/user">Adm. Usuarios </a></li>
               <li><a className="hover:text-gray-200" href="g">Contact Us</a></li>
             </ul>
+            <p className='mr-1'>{username}</p>
+
             <div className="hidden xl:flex space-x-5 items-center">
               <a className="flex items-center hover:text-gray-200" href="g">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 hover:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">

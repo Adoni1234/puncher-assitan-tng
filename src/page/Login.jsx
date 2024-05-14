@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Input, Ripple, initTWE } from "tw-elements";
 import { LoginAuth } from "../services/Autheticantions";
 import { Link } from "react-router-dom";
+import { setSessionStore } from "../utilitis/utils";
 
 initTWE({ Input, Ripple });
 
@@ -49,6 +50,8 @@ export function Login() {
       const response = await LoginAuth(formData);
       try {
         if (response.usernames ) {
+          setSessionStore(formData,'login')
+          window.location.href = 'homen'
           alert(response.message);
         } else {
           alert("Invalid username or password");
