@@ -1,57 +1,101 @@
-import { useState } from 'react';
 
-export function ModalComponent(){
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
+const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origins }) => {
   return (
-    <div>
-      <button onClick={openModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Open Modal
-      </button>
-      
-      {isOpen && (
-        <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-
-            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-
-            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start">
-                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                      Modal Title
-                    </h3>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        Modal content goes here. You can put any content you want inside this modal.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button onClick={closeModal} type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
-                  Close
-                </button>
-              </div>
-            </div>
+    <div
+      className={`${
+        isOpen ? "block" : "hidden"
+      } fixed inset-0 bg-gray-500 bg-opacity-75 overflow-y-auto`}
+    >
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="bg-white p-8 rounded shadow-lg w-96">
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold mb-2">{(type === 'creating')? 'Crear Elemento': 'Editar Elemento'}</h2>
+            <button
+              onClick={onClose}
+              className="absolute top-0 right-0 p-2 text-gray-500 hover:text-gray-700"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
           </div>
+          <form onSubmit={onSubmit}>
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-sm font-medium">
+                Usuario
+              </label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formData.error && formData.error.name && (
+                <p className="text-sm text-red-500">{formData.error.name}</p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="category" className="block text-sm font-medium">
+                Email
+              </label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formData.error && formData.error.category && (
+                <p className="text-sm text-red-500">{formData.error.category}</p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="color" className="block text-sm font-medium">
+                Cedula
+              </label>
+              <input
+                type="text"
+                id="cedula"
+                name="cedula"
+                value={formData.cedula}
+                onChange={handleChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formData.error && formData.error.cedula && (
+                <p className="text-sm text-red-500">{formData.error.cedula}</p>
+              )}
+            </div>
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={onClose}
+                className="mr-2 px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Guardar
+              </button>
+            </div>
+          </form>
         </div>
-      )}
+      </div>
     </div>
   );
-}
+};
+
+export default Modal;
