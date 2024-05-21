@@ -106,3 +106,25 @@ export async function CreateUser(data){
       }
 }
 
+export async function UpdateUser(data, id){
+   try{
+      const response = await fetch(`https://localhost:7090/api/Backoffice/update/user?id=${id}`,{
+        method : "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body : JSON.stringify(data)
+      })
+
+      if(!response.ok){
+        throw new Error("Error en la solicitud: " + response.status);
+      }
+
+      const responseData = await(response).json()
+      return responseData
+   }
+   catch(error){
+      throw new Error("Error en la solicitud: " + error.message);
+   }    
+}
+

@@ -1,9 +1,12 @@
 import { LayoutContainer } from "../../components/layaout.container";
 import { useEffect, useState } from 'react';
 import { CreateEmployee, GetAgente } from "../../services/BackOffice";
+import Modal from "../../components/Modal.component";
 
 export function Employee() {
     const [agente, setAgente] = useState([])
+    const [isModalOpen, setIsModalOpen] = useState(false); 
+    const [providen, setProviden] = useState(''); 
 
     const [formData, setFormData] = useState({
         name : "",
@@ -63,6 +66,28 @@ export function Employee() {
         return Object.keys(error).length === 0
     }
 
+    const edit = (data) => {
+        setFormData({
+          ...FormData,
+          name: data.name,
+          lastName: data.lastName,
+          email : data.correo,
+          cedula : data.cedula
+        });
+      }
+
+    const Origins = (origin, data) =>{
+        if(origin === 'creating'){
+            setProviden('creating') 
+            setIsModalOpen(true)
+          }else if(origin === 'editing'){
+            edit(data)
+            setProviden('editing') 
+            setIsModalOpen(true)
+          }
+    }
+
+
     const handleSubmit = async (event) =>{
         event.preventDefault();
         if(validatorForm()){
@@ -120,13 +145,22 @@ export function Employee() {
                           </td>
                           <td class="px-6 py-4 text-center"> <span class="text-white text-sm w-1/3 pb-1 bg-green-600 font-semibold px-2 rounded-full"> Active </span> </td>
                           <td class="px-6 py-4 text-center"> {c.cedula} </td>
-                          <td class="px-6 py-4 text-center"> <a href="s" class="text-purple-800 hover:underline">Edit</a> </td>
+                          <td onClick={() => Origins('editing', c)} class="px-6 py-4 text-center">Edit</td>
                       </tr>
                    ))}
                 </tbody>
             </table>
         </div>
     </div>
+    <Modal
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      onSubmit={handleSubmit}
+      formData={formData}
+      type={providen}
+      handleChange={handleChange}
+      origins={"employee"}
+    />
   </div>
     );
 }
