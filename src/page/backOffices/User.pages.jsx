@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { LayoutContainer } from "../../components/layaout.container";
 import { CreateUser, GetUser, UpdateUser } from "../../services/BackOffice";
 import Modal from "../../components/Modal.component";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useStateUser } from "../../utilitis/utils";
 
 export function UserPages() {
     const [userId, setUserId] = useState(''); 
     const [isModalOpen, setIsModalOpen] = useState(false); 
     const [providen, setProviden] = useState(''); 
+    const Profile =  useStateUser()
 
     const [user, setUser] = useState([]);
     const [FormData, SetFormData] = useState({
@@ -18,6 +22,10 @@ export function UserPages() {
 
     useEffect(() => {
         const FetchData = async () => {
+            if (!Profile) {
+                window.location.href = '/';
+                toast.error('Favor de Iniciar Session', 100);
+            }
             try {
                 const userData = await GetUser();
                 setUser(userData);
@@ -26,7 +34,7 @@ export function UserPages() {
             }
         };
         FetchData();
-    }, []); 
+    }, [Profile]); 
   
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -91,39 +99,40 @@ export function UserPages() {
              const response = await CreateUser(FormData);
              try {
                  if (response.password) {
-                    alert(response.message);
-                    alert(response.password)
+                    toast.success(response.message, 100);
+                    toast.success('Contraseña: ' + response.password, 200);
                     setIsModalOpen(false)
                  } else {
-                    alert("Usuario invalido");
+                    toast.error("Usuario invalido", 100);
                  }
              } catch (error) {
                  console.log(error);
-                 alert("There was an error during register");
+                 toast.error("There was an error during register",100);
              }
            }
            else{
             const response = await UpdateUser(FormData,userId);
             try {
                 if (response.id) {
-                    alert(response.message);
+                    toast(response.message,100);
                     setIsModalOpen(false)
                 } else {
-                    alert("Usuario invalido");
+                    toast.error("Usuario invalido", 100);
                 }
             } catch (error) {
                 console.log(error);
-                alert("There was an error during update");
+                toast.error("There was an error during update", 100);
             }
            }
         } else {
-            console.log('Formulario Invalido');
+           toast('Formulario Invalido',100);
         }
     };
 
     return (
         <div>
             <LayoutContainer />
+            <ToastContainer />
             <div className="min-h-screen bg-gray-200 py-5">
             <button
                 onClick={() => Origins('creating', 0)}

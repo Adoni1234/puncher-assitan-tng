@@ -11,3 +11,14 @@ export function GetSessionStore() {
 
     return username
 }
+
+export const useStateUser = () => {
+    const username = GetSessionStore();
+
+    if(username != null){
+        return true
+    }
+
+    return false
+};
+

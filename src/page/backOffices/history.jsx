@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { LayoutContainer } from "../../components/layaout.container";
 import { GetAgente, GetHistory } from "../../services/BackOffice";
+import { toast } from 'react-toastify';
+import { useStateUser } from '../../utilitis/utils';
 
 export function History() {
     const [agente, setAgente] = useState([])
     const [data, setData] = useState([]);
+    const Profile = useStateUser();
 
     const [filter, setFilter] = useState({
         employee : 'employee',
@@ -20,21 +23,23 @@ export function History() {
        }))
     }
      
-
-
     const handleChangeAndQuery = (event) => {
         handleChanges(event);
         query();
     }
 
     useEffect(() => {
+        if (!Profile) {
+            window.location.href = '/';
+            toast.error('Favor de Iniciar Session', 100);
+        }
         const fetchData = async () => {
             try {
                 const fromDate = new Date(filter.since);
                 const toDate = new Date(filter.until);
                 
                 if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
-                    throw new Error("Las fechas son inválidas");
+                    toast.error("Las fechas son inválidas");
                 }   
                 const historyData = await GetHistory(filter.employee, fromDate, toDate);
                 const AgenteData = await GetAgente();
@@ -46,7 +51,7 @@ export function History() {
         };
     
         fetchData();
-    }, [filter]);
+    }, [filter, Profile]);
     
 
      const query = async () => {

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { AccessAgent } from '../../services/Main';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function AccessPage() {
     const [code, setCode] = useState('');
@@ -11,7 +13,7 @@ export function AccessPage() {
     const handleSubmit = async () => {
         try {
             const response = await AccessAgent({ code: code });
-            console.log(response);
+            toast('Asistencia registrada correctamente de: ' + response.name, 200);
         } catch (error) {
             console.error("Error al enviar la solicitud:", error);
         }
@@ -19,6 +21,7 @@ export function AccessPage() {
 
     return (
         <div className="relative flex">
+            <ToastContainer />
             <img className='w-[50%] mt-[3rem]' src={require("../../Img/ImagenAss.jpg")} alt="" />
             <div className="mt-[0rem] w-[50%] items-center flex">
                 <div className="w-8/12">

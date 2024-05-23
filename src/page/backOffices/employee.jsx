@@ -1,12 +1,17 @@
 import { LayoutContainer } from "../../components/layaout.container";
 import { useEffect, useState } from 'react';
-import { CreateEmployee, GetAgente } from "../../services/BackOffice";
+import { CreateEmployee, GetAgente, UpdateEmployee } from "../../services/BackOffice";
 import Modal from "../../components/Modal.component";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useStateUser } from "../../utilitis/utils";
 
 export function Employee() {
     const [agente, setAgente] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false); 
     const [providen, setProviden] = useState(''); 
+    const [id , setId] = useState(0)
+    const Profile =  useStateUser()
 
     const [formData, setFormData] = useState({
         name : "",
@@ -15,8 +20,13 @@ export function Employee() {
         cedula : "",
         error : {}
     })
+     
 
     useEffect(() => {
+        if (!Profile) {
+            window.location.href = '/';
+            toast.success('Favor de Iniciar Session', 100);
+        }
         const fetchData = async () => {
             try { 
                 const AgenteData = await GetAgente();
@@ -27,7 +37,7 @@ export function Employee() {
         };
 
         fetchData();
-    });
+    }, [Profile]);
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -71,9 +81,10 @@ export function Employee() {
           ...FormData,
           name: data.name,
           lastName: data.lastName,
-          email : data.correo,
+          correo : data.correo,
           cedula : data.cedula
         });
+        setId(data.id)
       }
 
     const Origins = (origin, data) =>{
@@ -91,21 +102,37 @@ export function Employee() {
     const handleSubmit = async (event) =>{
         event.preventDefault();
         if(validatorForm()){
-            const response = await CreateEmployee(formData);
-            try{
-                if(response.data){
-                    alert(response.message)
-                  }else{
-                    alert(response.message)
-                  }
+            if(providen === "creating"){
+                const response = await CreateEmployee(formData);
+                try{
+                    if(response.data){
+                        toast.success(response.message, 200)
+                      }else{
+                        toast.success(response.message, 200)
+                      }
+                }
+                catch(error){
+                    console.log(error);
+                    toast.error("There was an error during creating", 200);
+                }
+            }else{
+                const response = await UpdateEmployee(formData,id);
+                try{
+                    if(response.id){
+                        toast(response.message, 200)
+                      }else{
+                        toast(response.message, 200)
+                      }
+                }
+                catch(error){
+                    console.log(error);
+                    toast.error("There was an error during creating", 200);
+                }
             }
-            catch(error){
-                console.log(error);
-                alert("There was an error during creating");
-            }
+
         }
         else{
-            console.log('invalid Data')
+            toast.error('invalid Data')
         }
 
     }
@@ -116,6 +143,15 @@ export function Employee() {
         <div>
         <LayoutContainer />
         <div class="min-h-screen bg-gray-200 py-5">
+            <ToastContainer />
+        <button
+           onClick={() => Origins('creating', 0)}
+           class="inline-block w-1/12 mt-1 ml-3 mb-2 rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-sm uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+           data-twe-ripple-init
+           data-twe-ripple-color="light"
+           >
+           Crear Agente
+        </button>
         <div class='overflow-x-auto w-full'>
             <table class='mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden'>
                 <thead class="bg-gray-900">

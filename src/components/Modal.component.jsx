@@ -104,29 +104,29 @@ const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origin
                   <input
                     type="text"
                     id="lastName"
-                    name="LastName"
+                    name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                  {formData.error && formData.error.email && (
-                    <p className="text-sm text-red-500">{formData.error.email}</p>
+                  /> 
+                  {formData.error && formData.error.lastName && (
+                    <p className="text-sm text-red-500">{formData.error.lastName}</p>
                   )}
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="email" className="block text-sm font-medium">
+                  <label htmlFor="correo" className="block text-sm font-medium">
                     Email
                   </label>
                   <input
                     type="text"
-                    id="email"
-                    name="email"
-                    value={formData.email}
+                    id="correo"
+                    name="correo"
+                    value={formData.correo}
                     onChange={handleChange}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   />
-                  {formData.error && formData.error.email && (
-                    <p className="text-sm text-red-500">{formData.error.email}</p>
+                  {formData.error && formData.error.correo && (
+                    <p className="text-sm text-red-500">{formData.error.correo}</p>
                   )}
                 </div>
                 <div className="mb-4">

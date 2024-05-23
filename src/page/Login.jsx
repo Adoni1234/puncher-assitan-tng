@@ -3,6 +3,7 @@ import { Input, Ripple, initTWE } from "tw-elements";
 import { LoginAuth } from "../services/Autheticantions";
 import { Link } from "react-router-dom";
 import { setSessionStore } from "../utilitis/utils";
+import { ToastContainer, toast } from "react-toastify";
 
 initTWE({ Input, Ripple });
 
@@ -52,21 +53,22 @@ export function Login() {
         if (response.usernames ) {
           setSessionStore(formData,'login')
           window.location.href = 'homen'
-          alert(response.message);
+          toast(response.message);
         } else {
-          alert("Invalid username or password");
+          toast.error("Invalid username or password");
         }
       } catch (error) {
         console.log(error);
-        alert("There was an error during authentication");
+        toast.error("There was an error during authentication");
       }
     } else {
-      alert("Invalid data");
+      toast.error("Invalid data");
     }
   };
 
   return (
     <section class="h-screen">
+      <ToastContainer />
       <div class="container h-full px-6 py-24">
         <div class="flex h-full flex-wrap items-center justify-center lg:justify-between">
           <div class="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
