@@ -1,18 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input, Ripple, initTWE } from "tw-elements";
 import { LoginAuth } from "../services/Autheticantions";
 import { Link } from "react-router-dom";
 import { setSessionStore } from "../utilitis/utils";
 import { ToastContainer, toast } from "react-toastify";
+import { GetUser } from "../services/BackOffice";
 
 initTWE({ Input, Ripple });
 
 export function Login() {
+
+  const[user, setUser] = useState([])
+  const [status, setStatus] = useState("")
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     error: {}
   });
+
+  useEffect(() => {
+    const FetchData = async () => {
+        try {
+            const userData = await GetUser();
+            setUser(userData);
+        } catch (error) {
+            console.error("Error al obtener los Empleados:", error);
+        }
+    };
+    FetchData();
+    }, []); 
+
+    const validate_Status = () =>{
+      const verifications_User = user.filter(u => u.username === formData.username && u.password === formData.password);
+      const verifications_status = verifications_User.filter(u => u.status === "Activo").map(a => a.status)
+      setStatus(verifications_status)
+    }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -47,13 +70,19 @@ export function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    validate_Status();
     if (validatorForm()) {
       const response = await LoginAuth(formData);
       try {
         if (response.usernames ) {
-          setSessionStore(formData,'login')
-          window.location.href = 'homen'
-          toast(response.message);
+          if(status === 'Inactivo' || status === ''){
+            toast.error("No puedes acceder, ya que tu usuario esta inactivo")
+          }else{
+            setSessionStore(formData,'login')
+            window.location.href = 'homen' 
+            toast(response.message);
+          }
+
         } else {
           toast.error("Invalid username or password");
         }

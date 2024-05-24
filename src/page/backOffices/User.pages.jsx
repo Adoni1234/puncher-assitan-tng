@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { LayoutContainer } from "../../components/layaout.container";
-import { CreateUser, GetUser, UpdateUser } from "../../services/BackOffice";
+import { CreateUser, GetUser, UpdateUser, UpdateUserStatus } from "../../services/BackOffice";
 import Modal from "../../components/Modal.component";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useStateUser } from "../../utilitis/utils";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRotate, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
 export function UserPages() {
     const [userId, setUserId] = useState(''); 
@@ -91,6 +93,21 @@ export function UserPages() {
         });
       }
 
+      const editStatus = async (status, id) => {
+        const response = await UpdateUserStatus(status, id);
+        try {
+            if (response.id) {
+               toast.success('Usuario Actualizado', 200);
+               setIsModalOpen(false)
+            } else {
+               toast.error("Usuario invalido", 100);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("There was an error during register",100);
+        }
+      }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         
@@ -150,6 +167,7 @@ export function UserPages() {
                                 <th className="font-semibold text-sm uppercase px-6 py-4 text-center"> Status </th>
                                 <th className="font-semibold text-sm uppercase px-6 py-4 text-center"> Cedula </th>
                                 <th className="font-semibold text-sm uppercase px-6 py-4"> </th>
+                                <th className="font-semibold text-sm uppercase px-6 py-4"> </th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
@@ -168,11 +186,17 @@ export function UserPages() {
                                     </td>
 
                                     <td className="px-6 py-4 text-center"> 
-                                        <span className="text-white text-sm w-1/3 pb-1 bg-green-600 font-semibold px-2 rounded-full"> Active </span> 
+                                        <span className="text-white text-sm w-1/3 pb-1 bg-green-600 font-semibold px-2 rounded-full"> {c.status} </span> 
                                     </td>
                                     <td className="px-6 py-4 text-center"> {c.cedula}</td>
                                     <td className="px-6 py-4 text-center"> 
                                         <buttom onClick={() => [Origins('editing', c), setUserId(c.id)]} className="text-purple-800 hover:underline">Edit</buttom> 
+                                    </td>
+                                    <td className="px-6 py-4 text-center"> 
+                                         {c.status === 'Activo'? (
+                                           <buttom onClick={() => editStatus('Inactivo', c.id)}><FontAwesomeIcon icon={faRotateRight} /></buttom>  
+                                        ) : <button onClick={() => editStatus('Activo', c.id)}><FontAwesomeIcon icon={faRotate} /></button>} 
+                                            
                                     </td>
                                 </tr>
                             ))}

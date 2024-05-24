@@ -149,6 +149,52 @@ export async function UpdateEmployee(data, id){
     }
 }
 
+export async function UpdateUserStatus(status, id){
+    try{
+       const response = await fetch(`https://localhost:7090/api/Backoffice/update/status?id=${id}`,{
+        method : "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(status)    
+       })
+
+       if(!response.ok){
+          throw Error("Error en la solicitud: " + response.status)
+       }
+
+       const responseData = await(response).json()
+       return responseData
+    }
+    catch(error){
+        throw new Error("Error en la solicitud: " + error.message);
+    }
+}
+   
+
+    export async function UpdateEmployeeStatus(status, id){
+        try{
+           const response = await fetch(`https://localhost:7090/api/Backoffice/update/status/employee?id=${id}`,{
+            method : "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(status)    
+           })
+    
+           if(!response.ok){
+              throw Error("Error en la solicitud: " + response.status)
+           }
+    
+           const responseData = await(response).json()
+           return responseData
+        }
+        catch(error){
+            throw new Error("Error en la solicitud: " + error.message);
+        }
+    }
+
+
 
 
 
