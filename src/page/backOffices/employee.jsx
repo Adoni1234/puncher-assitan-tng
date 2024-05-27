@@ -14,30 +14,36 @@ export function Employee() {
     const [providen, setProviden] = useState(''); 
     const [id , setId] = useState(0)
     const Profile =  useStateUser()
+    const initialFormData = {
+        name: "",
+        lastName: "",
+        correo: "",
+        cedula: "",
+        error: {}
+    };
 
-    const [formData, setFormData] = useState({
-        name : "",
-        lastName : "",
-        correo : "",
-        cedula : "",
-        error : {}
-    })
-     
+    const [formData, setFormData] = useState(initialFormData)
+
+    const fetchData = async () => {
+        try { 
+            const AgenteData = await GetAgente();
+            setAgente(AgenteData)
+        } catch (error) {
+            console.error("Error al obtener los Empleados:", error);
+        }
+    };
+
+    const reset_value = () =>{
+       formData.name = ""
+       setFormData(initialFormData)
+       setIsModalOpen(false)
+    }
 
     useEffect(() => {
         if (!Profile) {
             window.location.href = '/';
             toast.success('Favor de Iniciar Session', 100);
         }
-        const fetchData = async () => {
-            try { 
-                const AgenteData = await GetAgente();
-                setAgente(AgenteData)
-            } catch (error) {
-                console.error("Error al obtener los Empleados:", error);
-            }
-        };
-
         fetchData();
     }, [Profile]);
 
@@ -104,17 +110,17 @@ export function Employee() {
         const response = await UpdateEmployeeStatus(status,id);
         try {
             if (response.id) {
+                fetchData();
                toast.success('Agente Actualizado', 200);
-               setIsModalOpen(false)
             } else {
                toast.error("Agente invalido", 100);
             }
         } catch (error) {
             console.log(error);
-            toast.error("There was an error during register",100);
+            toast.error("There was an error during updateing",100);
         }
-      }
-
+    }
+      
 
     const handleSubmit = async (event) =>{
         event.preventDefault();
@@ -124,6 +130,8 @@ export function Employee() {
                 try{
                     if(response.data){
                         toast.success(response.message, 200)
+                        fetchData();
+                        reset_value()
                       }else{
                         toast.success(response.message, 200)
                       }
@@ -137,6 +145,8 @@ export function Employee() {
                 try{
                     if(response.id){
                         toast(response.message, 200)
+                        fetchData();
+                        reset_value()
                       }else{
                         toast(response.message, 200)
                       }

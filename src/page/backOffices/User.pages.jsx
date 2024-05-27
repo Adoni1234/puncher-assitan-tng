@@ -13,30 +13,37 @@ export function UserPages() {
     const [isModalOpen, setIsModalOpen] = useState(false); 
     const [providen, setProviden] = useState(''); 
     const Profile =  useStateUser()
-
-    const [user, setUser] = useState([]);
-    const [FormData, SetFormData] = useState({
+    const initialFormData = {
         username: '',
         email: '',
         cedula: '',
         error: {}  
-    });
+    };
+
+    const [user, setUser] = useState([]);
+    const [FormData, SetFormData] = useState(initialFormData);
+
+    const reset_values = () =>{
+        SetFormData(initialFormData)
+        setIsModalOpen(false)
+    }
+
+    const FetchData = async () => {
+        if (!Profile) {
+            window.location.href = '/';
+            toast.error('Favor de Iniciar Session', 100);
+        }
+        try {
+            const userData = await GetUser();
+            setUser(userData);
+        } catch (error) {
+            console.error("Error al obtener los Empleados:", error);
+        }
+    }
 
     useEffect(() => {
-        const FetchData = async () => {
-            if (!Profile) {
-                window.location.href = '/';
-                toast.error('Favor de Iniciar Session', 100);
-            }
-            try {
-                const userData = await GetUser();
-                setUser(userData);
-            } catch (error) {
-                console.error("Error al obtener los Empleados:", error);
-            }
-        };
         FetchData();
-    }, [Profile]); 
+    }); 
   
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -98,13 +105,13 @@ export function UserPages() {
         try {
             if (response.id) {
                toast.success('Usuario Actualizado', 200);
-               setIsModalOpen(false)
+               FetchData()
             } else {
                toast.error("Usuario invalido", 100);
             }
         } catch (error) {
             console.log(error);
-            toast.error("There was an error during register",100);
+            toast.error("There was an error during updateing",100);
         }
       }
 
@@ -118,7 +125,8 @@ export function UserPages() {
                  if (response.password) {
                     toast.success(response.message, 100);
                     toast.success('Contraseña: ' + response.password, 200);
-                    setIsModalOpen(false)
+                    reset_values();
+                    FetchData();
                  } else {
                     toast.error("Usuario invalido", 100);
                  }
@@ -132,7 +140,8 @@ export function UserPages() {
             try {
                 if (response.id) {
                     toast(response.message,100);
-                    setIsModalOpen(false)
+                    reset_values();
+                    FetchData();
                 } else {
                     toast.error("Usuario invalido", 100);
                 }
