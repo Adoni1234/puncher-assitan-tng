@@ -22,3 +22,20 @@ export const useStateUser = () => {
     return false
 };
 
+export function before_date(){
+        const currentDate = new Date();
+        currentDate.setMonth(currentDate.getMonth() - 3);
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0'); 
+        return `${year}-${month}-${day}`;
+} 
+
+export function DateFormatUs(){
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0'); 
+    return `${year}-${month}-${day}`;
+} 
+

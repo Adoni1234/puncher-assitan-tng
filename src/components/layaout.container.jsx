@@ -26,6 +26,7 @@ export function LayoutContainer() {
               <li><a href="/history" className="hover:text-gray-200" >Historial</a></li>
               <li><a className="hover:text-gray-200" href="/agente">Adm. Empleados </a></li>
               <li><a className="hover:text-gray-200" href="/user">Adm. Usuarios </a></li>
+              <li><a className="hover:text-gray-200" href="/code">Adm. Codigo </a></li>
               <li><a className="hover:text-gray-200" href="g">Contact Us</a></li>
             </ul>
             <p className='mr-1'>{username}</p>

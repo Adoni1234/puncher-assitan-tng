@@ -2,17 +2,18 @@ import { useEffect, useState } from 'react';
 import { LayoutContainer } from "../../components/layaout.container";
 import { GetAgente, GetHistory } from "../../services/BackOffice";
 import { toast } from 'react-toastify';
-import { useStateUser } from '../../utilitis/utils';
+import { DateFormatUs, before_date, useStateUser } from '../../utilitis/utils';
 
 export function History() {
     const [agente, setAgente] = useState([])
     const [data, setData] = useState([]);
     const Profile = useStateUser();
 
+
     const [filter, setFilter] = useState({
         employee : 'employee',
-        since : "2024-05-01",
-        until : "2024-05-14",
+        since :  before_date(),
+        until : DateFormatUs(),
     })
     
     const handleChanges = (event) => {

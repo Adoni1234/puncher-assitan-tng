@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { LayoutContainer } from "../../components/layaout.container";
 import { CreateUser, GetUser, UpdateUser, UpdateUserStatus } from "../../services/BackOffice";
 import Modal from "../../components/Modal.component";
@@ -6,13 +6,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useStateUser } from "../../utilitis/utils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRotate, faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faRotate, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
 export function UserPages() {
     const [userId, setUserId] = useState(''); 
     const [isModalOpen, setIsModalOpen] = useState(false); 
     const [providen, setProviden] = useState(''); 
     const Profile =  useStateUser()
+    const [filter, SetFilter] = useState('')
     const initialFormData = {
         username: '',
         email: '',
@@ -22,28 +23,38 @@ export function UserPages() {
 
     const [user, setUser] = useState([]);
     const [FormData, SetFormData] = useState(initialFormData);
+    const set_filter = (event) => {
+        SetFilter(event.target.value)
+    }
+
 
     const reset_values = () =>{
         SetFormData(initialFormData)
         setIsModalOpen(false)
     }
 
-    const FetchData = async () => {
+    const Data_filter = useCallback(async () => {
+        try { 
+            const userData = await GetUser();
+            if (filter) {
+                const filtering = userData.filter(a => a.username.includes(filter)); 
+                setUser(filtering);
+            } else {
+                setUser(userData);
+            }
+        } catch (error) {
+            console.error("Error al obtener los Usuarios:", error);
+        }
+    }, [filter]);
+
+
+    useEffect(() => {
         if (!Profile) {
             window.location.href = '/';
             toast.error('Favor de Iniciar Session', 100);
         }
-        try {
-            const userData = await GetUser();
-            setUser(userData);
-        } catch (error) {
-            console.error("Error al obtener los Empleados:", error);
-        }
-    }
-
-    useEffect(() => {
-        FetchData();
-    }); 
+        Data_filter();
+    },[Profile, Data_filter]); 
   
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -105,7 +116,7 @@ export function UserPages() {
         try {
             if (response.id) {
                toast.success('Usuario Actualizado', 200);
-               FetchData()
+               Data_filter()
             } else {
                toast.error("Usuario invalido", 100);
             }
@@ -126,7 +137,7 @@ export function UserPages() {
                     toast.success(response.message, 100);
                     toast.success('Contraseña: ' + response.password, 200);
                     reset_values();
-                    FetchData();
+                    Data_filter();
                  } else {
                     toast.error("Usuario invalido", 100);
                  }
@@ -141,7 +152,7 @@ export function UserPages() {
                 if (response.id) {
                     toast(response.message,100);
                     reset_values();
-                    FetchData();
+                    Data_filter();
                 } else {
                     toast.error("Usuario invalido", 100);
                 }
@@ -168,6 +179,17 @@ export function UserPages() {
               >
                 Crear Usuario
               </button>
+              <form class="flex items-center max-w-xl mx-auto mb-3 -mt-10">   
+                <label for="simple-search" class="sr-only">Search</label>
+                 <div class="relative w-full">
+                   <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                       <FontAwesomeIcon icon={faMagnifyingGlass} />
+                     </svg>
+                   </div>
+                 <input type="text" id="filter" value={filter} onChange={set_filter} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search branch name..." required />
+                </div>
+               </form>
                 <div className="overflow-x-auto w-full">
                     <table className="mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
                         <thead className="bg-gray-900">

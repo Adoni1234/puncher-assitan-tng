@@ -7,6 +7,7 @@ import { History } from './page/backOffices/history';
 import { AccessPage } from './page/main/AccessPage';
 import { Employee } from './page/backOffices/employee';
 import { UserPages } from './page/backOffices/User.pages';
+import { CodePage } from './page/backOffices/Code';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="access" element={<AccessPage />}></Route>
         <Route path="agente" element={<Employee />}></Route>
         <Route path="user" element={<UserPages />}></Route>
+        <Route path="code" element={<CodePage />}></Route>
       </Routes>
     </Router>
   </div>

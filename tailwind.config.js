@@ -2,13 +2,13 @@
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./node_modules/tw-elements/js/**/*.js"
+    "./node_modules/tw-elements-react/dist/js/**/*.js"
   ],
 
   theme: {
     extend: {},
   },
-  plugins: [require("tw-elements/plugin.cjs")],
+  plugins: [require("tw-elements-react/dist/plugin.cjs")],
   darkMode: "class",
 }
 
