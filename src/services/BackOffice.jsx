@@ -27,7 +27,7 @@ export async function GetAgente(){
           method : "GET",
           headers: {
             "Content-Type": "application/json"
-          }
+        }
         })
         if (!response.ok) {
             throw new Error("Error en la solicitud: " + response.status);
@@ -191,27 +191,6 @@ export async function UpdateUserStatus(status, id){
         }
         catch(error){
             throw new Error("Error en la solicitud: " + error.message);
-        }
-    }
-
-
-    export async function GetCodeAccess(){
-        try{
-         const response = await fetch("https://localhost:7090/api/Backoffice/code/access", {
-            method : "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
-         })
-
-         if(!response.ok){
-            throw Error("Error en la solicitud: " + response.status)
-         }
-         const response_data = await response.json();
-         return response_data
-        }
-        catch(error){
-            throw new Error("Error en la solicitud: " + error.message)
         }
     }
 

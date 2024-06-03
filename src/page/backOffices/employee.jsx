@@ -1,12 +1,12 @@
 import { LayoutContainer } from "../../components/layaout.container";
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CreateEmployee, GetAgente, UpdateEmployee, UpdateEmployeeStatus } from "../../services/BackOffice";
 import Modal from "../../components/Modal.component";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useStateUser } from "../../utilitis/utils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRotate, faRotateRight, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faRotate, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
 export function Employee() {
     const [agente, setAgente] = useState([])
@@ -14,8 +14,6 @@ export function Employee() {
     const [providen, setProviden] = useState(''); 
     const [id , setId] = useState(0)
     const Profile =  useStateUser()
-    const [filter, SetFilter] = useState('')
-
     const initialFormData = {
         name: "",
         lastName: "",
@@ -25,25 +23,15 @@ export function Employee() {
     };
 
     const [formData, setFormData] = useState(initialFormData)
-     
-    const set_filter = (event) => {
-        SetFilter(event.target.value)
-    }
 
-
-    const Data_filter = useCallback(async () => {
+    const fetchData = async () => {
         try { 
             const AgenteData = await GetAgente();
-            if (filter) {
-                const filtering = AgenteData.filter(a => a.name.includes(filter)); 
-                setAgente(filtering);
-            } else {
-                setAgente(AgenteData);
-            }
+            setAgente(AgenteData)
         } catch (error) {
             console.error("Error al obtener los Empleados:", error);
         }
-    }, [filter]);
+    };
 
     const reset_value = () =>{
        formData.name = ""
@@ -56,8 +44,8 @@ export function Employee() {
             window.location.href = '/';
             toast.success('Favor de Iniciar Session', 100);
         }
-        Data_filter();
-    }, [Profile, Data_filter]);
+        fetchData();
+    }, [Profile]);
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -122,7 +110,7 @@ export function Employee() {
         const response = await UpdateEmployeeStatus(status,id);
         try {
             if (response.id) {
-               Data_filter()
+                fetchData();
                toast.success('Agente Actualizado', 200);
             } else {
                toast.error("Agente invalido", 100);
@@ -142,7 +130,7 @@ export function Employee() {
                 try{
                     if(response.data){
                         toast.success(response.message, 200)
-                       Data_filter();
+                        fetchData();
                         reset_value()
                       }else{
                         toast.success(response.message, 200)
@@ -157,7 +145,7 @@ export function Employee() {
                 try{
                     if(response.id){
                         toast(response.message, 200)
-                       Data_filter();
+                        fetchData();
                         reset_value()
                       }else{
                         toast(response.message, 200)
@@ -176,6 +164,8 @@ export function Employee() {
 
     }
 
+
+
     return (
         <div>
         <LayoutContainer />
@@ -189,19 +179,6 @@ export function Employee() {
            >
            Crear Agente
         </button>
-
-        <form class="flex items-center max-w-xl mx-auto mb-3 -mt-10">   
-         <label for="simple-search" class="sr-only">Search</label>
-          <div class="relative w-full">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </svg>
-            </div>
-          <input type="text" id="filter" value={filter} onChange={set_filter} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search branch name..." required />
-         </div>
-        </form>
-
         <div class='overflow-x-auto w-full'>
             <table class='mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden'>
                 <thead class="bg-gray-900">
@@ -219,7 +196,7 @@ export function Employee() {
                       <tr>
                           <td class="px-6 py-4">
                               <div class="flex items-center space-x-3">
-                                  <div class="inline-flex w-10 h-10"><img className='w-10 h-10 object-cover rounded-full' alt='User avatar' src={require('../../Img/employee.png')} /> </div>
+                                  <div class="inline-flex w-10 h-10"> <img class='w-10 h-10 object-cover rounded-full' alt='User avatar' src='https://i.imgur.com/siKnZP2.jpg' /> </div>
                                   <div>
                                       <p> {c.name} {c.lastName} </p>
                                       <p class="text-gray-500 text-sm font-semibold tracking-wide">{c.correo}</p>
