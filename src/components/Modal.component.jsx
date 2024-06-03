@@ -145,6 +145,22 @@ const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origin
                     <p className="text-sm text-red-500">{formData.error.cedula}</p>
                   )}
                 </div>
+                <div className="mb-4">
+                  <label htmlFor="designatio" className="block text-sm font-medium">
+                  Designacion
+                  </label>
+                  <input
+                    type="text"
+                    id="designatio"
+                    name="designatio"
+                    value={formData.designatio}
+                    onChange={handleChange}
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  />
+                  {formData.error && formData.error.designatio && (
+                    <p className="text-sm text-red-500">{formData.error.designatio}</p>
+                  )}
+                </div>
               </>
             ) :
             (

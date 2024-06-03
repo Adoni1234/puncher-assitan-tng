@@ -1,4 +1,5 @@
 
+
 export async function GetHistory(employee, from, to) {
     try {
         const url = new URL(`https://localhost:7090/api/Backoffice/History?employee=${employee}&from=${from.toISOString()}&to=${to.toISOString()}`);

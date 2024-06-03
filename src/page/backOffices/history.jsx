@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { LayoutContainer } from "../../components/layaout.container";
 import { GetAgente, GetHistory } from "../../services/BackOffice";
-import { toast } from 'react-toastify';
-import { useStateUser } from '../../util/utils';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { DateFormatUs, before_date, useStateUser } from '../../utilitis/utils';
 
 export function History() {
     const [agente, setAgente] = useState([])
@@ -46,6 +47,9 @@ export function History() {
                 setData(historyData);
                 setAgente(AgenteData)
             } catch (error) {
+                if (error.message.includes("Failed to fetch")) {
+                    toast.error("Http Timeout", 200);
+                 }
                 console.error("Error al obtener el historial:", error);
             }
         };
@@ -62,19 +66,22 @@ export function History() {
             if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
                 throw new Error("Las fechas son inválidas");
             }
-            
             const historyData = await GetHistory(filter.employee, fromDate, toDate);
             setData(historyData);
-
         }
         catch (error){
+            if (error.message.includes("Failed to fetch")) {
+                toast.error("Http Timeout", 200);
+             }
             console.error("Error al obtener el historial:", error);
+
         }
      }
 
     return (
         <div>
             <LayoutContainer />
+            <ToastContainer />
             <div className="flex bg-gray-50 h-[5rem]  rounded-xl m-4">
                <div className="w-2/12 m-1 ml-4">
                <label for="countries" class="block  text-sm font-medium text-gray-900 dark:text-white">Filter</label>

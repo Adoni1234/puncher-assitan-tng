@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { GetSessionStore } from '../util/utils';
+import { GetSessionStore, closedSections } from '../utilitis/utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDoorClosed } from '@fortawesome/free-solid-svg-icons';
 
 
 export function LayoutContainer() {
@@ -14,6 +16,11 @@ export function LayoutContainer() {
       setUsername(profile) 
     }
 
+    const closed = () => {
+       closedSections();
+       window.location.href = '/'
+      }
+
     return (
       <div>
         <nav className="flex justify-between bg-gray-900 text-white w-screen">
@@ -26,9 +33,11 @@ export function LayoutContainer() {
               <li><a href="/history" className="hover:text-gray-200" >Historial</a></li>
               <li><a className="hover:text-gray-200" href="/agente">Adm. Empleados </a></li>
               <li><a className="hover:text-gray-200" href="/user">Adm. Usuarios </a></li>
-              <li><a className="hover:text-gray-200" href="g">Contact Us</a></li>
+              <li><a className="hover:text-gray-200" href="/code">Adm. Codigo </a></li>
             </ul>
             <p className='mr-1'>{username}</p>
+            /
+            <button className='ml-1' onClick={closed}>Cerrar Session <FontAwesomeIcon icon={faDoorClosed} /> </button>
           </div>
           <a className="navbar-burger self-center mr-12 xl:hidden" href="\g">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 hover:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
