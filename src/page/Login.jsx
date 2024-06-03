@@ -112,7 +112,7 @@ export function Login() {
           </div>
 
           <div className="md:w-8/12 lg:ms-6 lg:w-5/12">
-            <h1 classNameName="text-center font-bold text-3xl">Login</h1>
+            <h1 classNameName="text-center font-bold text-3xl">Conéctese</h1>
             <form onSubmit={handleSubmit}>
               <div className="relative mb-6" data-twe-input-wrapper-init>
                 <input
