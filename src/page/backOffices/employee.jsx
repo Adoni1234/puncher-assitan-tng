@@ -21,6 +21,7 @@ export function Employee() {
         lastName: "",
         correo: "",
         cedula: "",
+        designatio : "",
         error: {}
     };
 
@@ -89,6 +90,9 @@ export function Employee() {
         }
         if(!formData.cedula){
             error.cedula = "Cedula requiered"
+        }
+        if(!formData.designatio){
+            error.designatio = "Designatio requiered"
         }
 
         setFormData((prevData) => ({
@@ -230,8 +234,7 @@ export function Employee() {
                               </div>
                           </td>
                           <td class="px-6 py-4">
-                              <p class=""> Software Developer </p>
-                              <p class="text-gray-500 text-sm font-semibold tracking-wide"> Development </p>
+                              <p class="text-gray-500 text-sm font-semibold tracking-wide"> {c.designatio} </p>
                           </td>
                           <td class="px-6 py-4 text-center"> <span class="text-white text-sm w-1/3 pb-1 bg-green-600 font-semibold px-2 rounded-full"> {c.status} </span> </td>
                           <td class="px-6 py-4 text-center"> {c.cedula} </td>
