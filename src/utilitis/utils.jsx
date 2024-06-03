@@ -3,6 +3,11 @@ export function setSessionStore(data, name){
     sessionStorage.setItem('Client', JSON.stringify(data))
 }
 
+export function closedSections(data, name){
+    sessionStorage.removeItem('Client')
+}
+
+
 export function GetSessionStore() {
     const DataStore = sessionStorage.getItem('Client')
 
