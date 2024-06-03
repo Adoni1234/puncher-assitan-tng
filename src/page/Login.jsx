@@ -9,33 +9,37 @@ import { GetUser } from "../services/BackOffice";
 initTWE({ Input, Ripple });
 
 export function Login() {
-
-  const[user, setUser] = useState([])
-  const [status, setStatus] = useState("")
+  const [user, setUser] = useState([]);
+  const [status, setStatus] = useState("");
 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    error: {}
+    error: {},
   });
 
   useEffect(() => {
     const FetchData = async () => {
-        try {
-            const userData = await GetUser();
-            setUser(userData);
-        } catch (error) {
-            console.error("Error al obtener los Empleados:", error);
-        }
+      try {
+        const userData = await GetUser();
+        setUser(userData);
+      } catch (error) {
+        console.error("Error al obtener los Empleados:", error);
+      }
     };
     FetchData();
-    }, []); 
+  }, []);
 
-    const validate_Status = () =>{
-      const verifications_User = user.filter(u => u.username === formData.username && u.password === formData.password);
-      const verifications_status = verifications_User.filter(u => u.status === "Activo").map(a => a.status)
-      setStatus(verifications_status)
-    }
+  const validate_Status = () => {
+    const verifications_User = user.filter(
+      (u) =>
+        u.username === formData.username && u.password === formData.password
+    );
+    const verifications_status = verifications_User
+      .filter((u) => u.status === "Activo")
+      .map((a) => a.status);
+    setStatus(verifications_status);
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -74,15 +78,14 @@ export function Login() {
     if (validatorForm()) {
       const response = await LoginAuth(formData);
       try {
-        if (response.usernames ) {
-          if(status === 'Inactivo' || status === ''){
-            toast.error("No puedes acceder, ya que tu usuario esta inactivo")
-          }else{
-            setSessionStore(formData,'login')
-            window.location.href = 'homen' 
+        if (response.usernames) {
+          if (status === "Inactivo" || status === "") {
+            toast.error("No puedes acceder, ya que tu usuario esta inactivo");
+          } else {
+            setSessionStore(formData, "login");
+            window.location.href = "homen";
             toast(response.message);
           }
-
         } else {
           toast.error("Invalid username or password");
         }
@@ -148,7 +151,7 @@ export function Login() {
                     className="inline-block ps-[0.15rem] hover:cursor-pointer"
                     for="exampleCheck3"
                   >
-                    Remember me
+                    Recuérdame
                   </label>
                 </div>
 
@@ -156,7 +159,7 @@ export function Login() {
                   href="#!"
                   className="text-primary focus:outline-none dark:text-primary-400"
                 >
-                  Forgot password?
+                  ¿Ha olvidado su contraseña?
                 </a>
               </div>
 
@@ -166,15 +169,16 @@ export function Login() {
                 data-twe-ripple-init
                 data-twe-ripple-color="light"
               >
-                Sign in
+                Iniciar Sesión
               </button>
 
-              <div
-                className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300 dark:before:border-neutral-500 dark:after:border-neutral-500"
-              >
-                <p
-                  className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200"
-                > <Link to='/signUp' classNameName="text-blue-500">Registrate aqui</Link></p>
+              <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300 dark:before:border-neutral-500 dark:after:border-neutral-500">
+                <p className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">
+                  {" "}
+                  <Link to="/signUp" classNameName="text-blue-500">
+                    Registrate aqui
+                  </Link>
+                </p>
               </div>
             </form>
           </div>
