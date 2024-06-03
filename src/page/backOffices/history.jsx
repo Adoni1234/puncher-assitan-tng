@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { LayoutContainer } from "../../components/layaout.container";
 import { GetAgente, GetHistory } from "../../services/BackOffice";
 import { toast } from 'react-toastify';
-import { useStateUser } from '../../utilitis/utils';
+import { useStateUser } from '../../util/utils';
 
 export function History() {
     const [agente, setAgente] = useState([])

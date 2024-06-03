@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GetSessionStore } from '../utilitis/utils';
+import { GetSessionStore } from '../util/utils';
 
 
 export function LayoutContainer() {
