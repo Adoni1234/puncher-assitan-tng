@@ -4,7 +4,7 @@ import { CreateEmployee, GetAgente, UpdateEmployee, UpdateEmployeeStatus } from 
 import Modal from "../../components/Modal.component";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useStateUser } from "../../utilitis/utils";
+import { useStateUser } from "../../util/utils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRotate, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
