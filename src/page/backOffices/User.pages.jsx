@@ -1,34 +1,49 @@
 import { useEffect, useState } from "react";
 import { LayoutContainer } from "../../components/layaout.container";
-import { CreateUser, GetUser } from "../../services/BackOffice";
+import { CreateUser, GetUser, UpdateUser, UpdateUserStatus } from "../../services/BackOffice";
 import Modal from "../../components/Modal.component";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useStateUser } from "../../util/utils";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRotate, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
 export function UserPages() {
-    const [editing, setEditing] = useState(false);
-    const [creating, setCreating] = useState(false);
-  
+    const [userId, setUserId] = useState(''); 
     const [isModalOpen, setIsModalOpen] = useState(false); 
     const [providen, setProviden] = useState(''); 
-
-    const [user, setUser] = useState([]);
-    const [FormData, SetFormData] = useState({
+    const Profile =  useStateUser()
+    const initialFormData = {
         username: '',
         email: '',
         cedula: '',
         error: {}  
-    });
+    };
+
+    const [user, setUser] = useState([]);
+    const [FormData, SetFormData] = useState(initialFormData);
+
+    const reset_values = () =>{
+        SetFormData(initialFormData)
+        setIsModalOpen(false)
+    }
+
+    const FetchData = async () => {
+        if (!Profile) {
+            window.location.href = '/';
+            toast.error('Favor de Iniciar Session', 100);
+        }
+        try {
+            const userData = await GetUser();
+            setUser(userData);
+        } catch (error) {
+            console.error("Error al obtener los Empleados:", error);
+        }
+    }
 
     useEffect(() => {
-        const FetchData = async () => {
-            try {
-                const userData = await GetUser();
-                setUser(userData);
-            } catch (error) {
-                console.error("Error al obtener los Empleados:", error);
-            }
-        };
         FetchData();
-    }, []);  // Añadido un array vacío para evitar llamadas infinitas a FetchData
+    }); 
   
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -67,12 +82,11 @@ export function UserPages() {
 
     const Origins = (origin, data) => {
         if(origin === 'creating'){
-          setCreating(true)
-          setIsModalOpen(true)
           setProviden('creating') 
+          setIsModalOpen(true)
         }else if(origin === 'editing'){
+          setProviden('editing') 
           edit(data)
-          setEditing(true)
           setIsModalOpen(true)
         }
       }
@@ -86,33 +100,69 @@ export function UserPages() {
         });
       }
 
+      const editStatus = async (status, id) => {
+        const response = await UpdateUserStatus(status, id);
+        try {
+            if (response.id) {
+               toast.success('Usuario Actualizado', 200);
+               FetchData()
+            } else {
+               toast.error("Usuario invalido", 100);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("There was an error during updateing",100);
+            
+        }
+      }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         
         if (validatorForm()) {
-            const response = await CreateUser(FormData);
+           if(providen === "creating"){
+             const response = await CreateUser(FormData);
+             try {
+                 if (response.password) {
+                    toast.success(response.message, 100);
+                    toast.success('Contraseña: ' + response.password, 200);
+                    reset_values();
+                    FetchData();
+                 } else {
+                    toast.error("Usuario invalido", 100);
+                 }
+             } catch (error) {
+                 console.log(error);
+                 toast.error("There was an error during register",100);
+             }
+           }
+           else{
+            const response = await UpdateUser(FormData,userId);
             try {
-                if (response.password) {
-                    alert(response.message);
-                    alert(response.password)
+                if (response.id) {
+                    toast(response.message,100);
+                    reset_values();
+                    FetchData();
                 } else {
-                    alert("Usuario invalido");
+                    toast.error("Usuario invalido", 100);
                 }
             } catch (error) {
                 console.log(error);
-                alert("There was an error during register");
+                toast.error("There was an error during update", 100);
             }
+           }
         } else {
-            console.log('Formulario Invalido');
+           toast('Formulario Invalido',100);
         }
     };
 
     return (
         <div>
             <LayoutContainer />
+            <ToastContainer />
             <div className="min-h-screen bg-gray-200 py-5">
             <button
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => Origins('creating', 0)}
                 class="inline-block w-1/12 mt-1 ml-3 mb-2 rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-sm uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 data-twe-ripple-init
                 data-twe-ripple-color="light"
@@ -126,6 +176,7 @@ export function UserPages() {
                                 <th className="font-semibold text-sm uppercase px-6 py-4"> Name </th>
                                 <th className="font-semibold text-sm uppercase px-6 py-4 text-center"> Status </th>
                                 <th className="font-semibold text-sm uppercase px-6 py-4 text-center"> Cedula </th>
+                                <th className="font-semibold text-sm uppercase px-6 py-4"> </th>
                                 <th className="font-semibold text-sm uppercase px-6 py-4"> </th>
                             </tr>
                         </thead>
@@ -145,11 +196,17 @@ export function UserPages() {
                                     </td>
 
                                     <td className="px-6 py-4 text-center"> 
-                                        <span className="text-white text-sm w-1/3 pb-1 bg-green-600 font-semibold px-2 rounded-full"> Active </span> 
+                                        <span className="text-white text-sm w-1/3 pb-1 bg-green-600 font-semibold px-2 rounded-full"> {c.status} </span> 
                                     </td>
                                     <td className="px-6 py-4 text-center"> {c.cedula}</td>
                                     <td className="px-6 py-4 text-center"> 
-                                        <buttom onClick={() => [Origins('editing', c)]} className="text-purple-800 hover:underline">Edit</buttom> 
+                                        <buttom onClick={() => [Origins('editing', c), setUserId(c.id)]} className="text-purple-800 hover:underline">Edit</buttom> 
+                                    </td>
+                                    <td className="px-6 py-4 text-center"> 
+                                         {c.status === 'Activo'? (
+                                           <buttom onClick={() => editStatus('Inactivo', c.id)}><FontAwesomeIcon icon={faRotateRight} /></buttom>  
+                                        ) : <button onClick={() => editStatus('Activo', c.id)}><FontAwesomeIcon icon={faRotate} /></button>} 
+                                            
                                     </td>
                                 </tr>
                             ))}
@@ -164,6 +221,7 @@ export function UserPages() {
                 formData={FormData}
                 type={providen}
                 handleChange={handleChange}
+                origins={"user"}
             />
         </div>
     );
