@@ -41,6 +41,9 @@ export function Employee() {
                 setAgente(AgenteData);
             }
         } catch (error) {
+            if (error.message.includes("Failed to fetch")) {
+                toast.error("Http Timeout", 200);
+             }
             console.error("Error al obtener los Empleados:", error);
         }
     }, [filter]);

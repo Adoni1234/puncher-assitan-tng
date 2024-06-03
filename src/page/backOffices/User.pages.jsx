@@ -123,6 +123,7 @@ export function UserPages() {
         } catch (error) {
             console.log(error);
             toast.error("There was an error during updateing",100);
+            
         }
       }
 
