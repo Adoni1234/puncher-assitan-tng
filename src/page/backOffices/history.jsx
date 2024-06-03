@@ -10,10 +10,11 @@ export function History() {
     const [data, setData] = useState([]);
     const Profile = useStateUser();
 
+
     const [filter, setFilter] = useState({
         employee : 'employee',
-        since : "2024-05-01",
-        until : "2024-05-14",
+        since :  before_date(),
+        until : DateFormatUs(),
     })
     
     const handleChanges = (event) => {
