@@ -23,7 +23,7 @@ export function Employee() {
         id_companie : "",
         correo: "",
         cedula: "",
-        designatio : "",
+        designation : "",
         error: {}
     };
 
@@ -95,8 +95,8 @@ export function Employee() {
         if(!formData.cedula){
             error.cedula = "Cedula requiered"
         }
-        if(!formData.designatio){
-            error.designatio = "Designatio requiered"
+        if(!formData.designation){
+            error.designation = "Designatio requiered"
         }
 
         setFormData((prevData) => ({
@@ -111,10 +111,11 @@ export function Employee() {
         setFormData({
           ...FormData,
           name: data.name,
-          lastName: data.lastName,
+          lastName: data.lastname,
           id_companie : data.id_companie,
           correo : data.correo,
-          cedula : data.cedula
+          cedula : data.cedula,
+          designation : data.designation
         });
         setId(data.id)
       }
@@ -248,7 +249,7 @@ export function Employee() {
                               <div class="flex items-center space-x-3">
                                   <div class="inline-flex w-10 h-10"><img className='w-10 h-10 object-cover rounded-full' alt='User avatar' src={require('../../Img/employee.png')} /> </div>
                                   <div>
-                                      <p> {c.name} {c.lastName} </p>
+                                      <p> {c.name} {c.lastname} </p>
                                       <p class="text-gray-500 text-sm font-semibold tracking-wide">{c.correo}</p>
                                   </div>
                               </div>
@@ -257,7 +258,7 @@ export function Employee() {
                               <p class="text-gray-500 text-sm font-semibold tracking-wide"> {c.name_companie} </p>
                           </td>
                           <td class="px-6 py-4">
-                              <p class="text-gray-500 text-sm font-semibold tracking-wide"> {c.designatio} </p>
+                              <p class="text-gray-500 text-sm font-semibold tracking-wide"> {c.designation} </p>
                           </td>
                           <td class="px-6 py-4 text-center"> <span class="text-white text-sm w-1/3 pb-1 bg-green-600 font-semibold px-2 rounded-full"> {c.status} </span> </td>
                           <td class="px-6 py-4 text-center"> {c.cedula} </td>

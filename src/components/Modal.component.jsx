@@ -156,19 +156,19 @@ const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origin
                   )}
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="designatio" className="block text-sm font-medium">
+                  <label htmlFor="designation" className="block text-sm font-medium">
                   Designacion
                   </label>
                   <input
                     type="text"
-                    id="designatio"
-                    name="designatio"
-                    value={formData.designatio}
+                    id="designation"
+                    name="designation"
+                    value={formData.designation}
                     onChange={handleChange}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   />
-                  {formData.error && formData.error.designatio && (
-                    <p className="text-sm text-red-500">{formData.error.designatio}</p>
+                  {formData.error && formData.error.designation && (
+                    <p className="text-sm text-red-500">{formData.error.designation}</p>
                   )}
                 </div>
               </>
