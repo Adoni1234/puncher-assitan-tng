@@ -216,6 +216,70 @@ export async function UpdateUserStatus(status, id){
         }
     }
 
+    export async function GetCompanies(){
+        try{
+           const response = await fetch("https://localhost:7090/api/Backoffice/compnies", {
+             method : "GET",
+             headers: {
+                "Content-Type": "application/json"
+            }
+           })
+
+           if(!response.ok){
+            throw Error("Error en la solicitud: " + response.status)
+           }
+
+           const responseData = await (response).json();
+           return responseData
+        }
+        catch(error){
+            throw new Error("Error en la solicitud: " + error.message)
+        }
+    }
+
+    export async function CreateCompanie(data){
+        try{
+           const response = await fetch("https://localhost:7090/api/Backoffice/create/companie", {
+             method : "POST",
+             headers: {
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify(data)
+           })
+
+           if(!response.ok){
+            throw Error("Error en la solicitud: " + response.status)
+           }
+
+           const responseData = await (response).json();
+           return responseData
+        }
+        catch(error){
+            throw new Error("Error en la solicitud: " + error.message)
+        }
+    }
+    export async function UpdateCompanie(data, id){
+        try{
+           const response = await fetch(`https://localhost:7090/api/Backoffice/update/companie?id=${id}`,{
+            method : "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)    
+           })
+    
+           if(!response.ok){
+              throw Error("Error en la solicitud: " + response.status)
+           }
+    
+           const responseData = await(response).json()
+           return responseData
+        }
+        catch(error){
+            throw new Error("Error en la solicitud: " + error.message);
+        }
+    }
+
 
 
 

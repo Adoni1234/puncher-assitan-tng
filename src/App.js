@@ -8,6 +8,7 @@ import { AccessPage } from './page/main/AccessPage';
 import { Employee } from './page/backOffices/employee';
 import { UserPages } from './page/backOffices/User.pages';
 import { CodePage } from './page/backOffices/Code';
+import { CompaniePage } from './page/backOffices/CompaniePage';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="agente" element={<Employee />}></Route>
         <Route path="user" element={<UserPages />}></Route>
         <Route path="code" element={<CodePage />}></Route>
+        <Route path="companie" element={<CompaniePage />}></Route>
       </Routes>
     </Router>
   </div>

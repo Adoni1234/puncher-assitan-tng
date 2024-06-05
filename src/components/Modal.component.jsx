@@ -1,4 +1,4 @@
-const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origins }) => {
+const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origins, dataSelect }) => {
 
   return (
     <div
@@ -114,6 +114,16 @@ const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origin
                   )}
                 </div>
                 <div className="mb-4">
+                <label for="countries" className="block  text-sm font-medium text-gray-900 dark:text-white">Empresa</label>
+                  <select id="id_companie" name='id_companie' value={formData.id_companie} onChange={handleChange}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="employee" selected>(seleccionar)</option>
+                    { dataSelect.map((c) => (
+                    <option  value={c.id}>{c.name}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="mb-4">
                   <label htmlFor="correo" className="block text-sm font-medium">
                     Email
                   </label>
@@ -162,25 +172,44 @@ const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origin
                   )}
                 </div>
               </>
-            ) :
+            ) : origins === 'companie' ?
             (
             <>
-              <div className="mb-4">
-                  <label htmlFor="anotherField" className="block text-sm font-medium">
-                    Otro Campo
+                <div className="mb-4">
+                  <label htmlFor="name" className="block text-sm font-medium">
+                    Nombre
                   </label>
                   <input
                     type="text"
-                    id="anotherField"
-                    name="anotherField"
-                    value={formData.anotherField || ''}
+                    id="name"
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   />
-                  {formData.error && formData.error.anotherField && (
-                    <p className="text-sm text-red-500">{formData.error.anotherField}</p>
+                  {formData.error && formData.error.name && (
+                    <p className="text-sm text-red-500">{formData.error.name}</p>
                   )}
                 </div>
+                <div className="mb-4">
+                  <label htmlFor="code_identification" className="block text-sm font-medium">
+                  Codigo identificacion
+                  </label>
+                  <input
+                    type="text"
+                    id="code_identification"
+                    name="code_identification"
+                    value={formData.code_identification}
+                    onChange={handleChange}
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  /> 
+                  {formData.error && formData.error.code_identification && (
+                    <p className="text-sm text-red-500">{formData.error.code_identification}</p>
+                  )}
+                </div>
+              </>
+            ) : (
+              <>
               </>
             )}
             <div className="flex justify-end">
