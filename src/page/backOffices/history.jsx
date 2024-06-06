@@ -87,7 +87,7 @@ export function History() {
                <div className="w-2/12 m-1 ml-4">
                <label for="countries" class="block  text-sm font-medium text-gray-900 dark:text-white">Filter</label>
                   <select id="countries" name='employee' value={filter.employee} onChange={handleChangeAndQuery} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="employee" selected>Empleados</option>
+                    <option value="employee" selected>(seleccionar)</option>
                     { agente.map((c) => (
                         <option value={c.name}>{c.name}</option>
                     ))}

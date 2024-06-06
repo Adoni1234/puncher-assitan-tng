@@ -21,7 +21,7 @@ export function CompaniePage(){
 
     useEffect(() => {
         fetchData()
-    })
+    }, [])
 
     const filtered = (event) =>{
        SetFilter(event.target.value)
