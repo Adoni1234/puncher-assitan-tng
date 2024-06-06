@@ -21,6 +21,12 @@ export function LayoutContainer() {
        window.location.href = '/'
       }
 
+      const [adminMenuOpen, setAdminMenuOpen] = useState(false);
+
+  const toggleAdminMenu = () => {
+    setAdminMenuOpen(!adminMenuOpen);
+  };
+
     return (
       <div>
         <nav className="flex justify-between bg-gray-900 text-white w-screen">
@@ -29,12 +35,21 @@ export function LayoutContainer() {
              <img className="h-9" src={require('../Img/logo-backoffice.png')} alt="logo" />
             </a>
             <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-              <li><a href="/homen" className="hover:text-gray-200" >BackOffice</a></li>
-              <li><a href="/history" className="hover:text-gray-200" >Historial</a></li>
-              <li><a className="hover:text-gray-200" href="/agente">Adm. Empleados </a></li>
-              <li><a className="hover:text-gray-200" href="/user">Adm. Usuarios </a></li>
-              <li><a className="hover:text-gray-200" href="/companie">Adm. Compañias </a></li>
-            </ul>
+              <li><a href="/homen" className="hover:text-gray-200">BackOffice</a></li>
+              <li><a href="/history" className="hover:text-gray-200">Historial</a></li>
+              <li className="relative">
+              <button onClick={toggleAdminMenu} className="hover:text-gray-200">Administración</button>
+              {adminMenuOpen && (
+                <ul className="absolute left-0 mt-2 w-48 bg-gray-800 shadow-lg rounded-lg z-20">
+                  <li><a href="/agente" className="block px-4 py-2 hover:bg-gray-100">Adm. Empleados</a></li>
+                  <li><a href="/user" className="block px-4 py-2 hover:bg-gray-100">Adm. Usuarios</a></li>
+                  <li><a href="/companie" className="block px-4 py-2 hover:bg-gray-100">Adm. Compañias</a></li>
+                </ul>
+              )}
+            </li>
+            <li><a href="/contact" className="hover:text-gray-200">Contacto</a></li>
+            <li><a href="/about" className="hover:text-gray-200">Acerca de</a></li>
+           </ul>
             <p className='mr-1'>{username}</p>
             /
             <button className='ml-1' onClick={closed}>Cerrar Session <FontAwesomeIcon icon={faDoorClosed} /> </button>
