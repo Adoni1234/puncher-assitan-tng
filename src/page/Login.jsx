@@ -79,7 +79,7 @@ export function Login() {
       const response = await LoginAuth(formData);
       try {
         if (response.usernames) {
-          if (status === "Inactivo" || status === "") {
+          if (Array.isArray(status) && status.length === 0) {
             toast.error("No puedes acceder, ya que tu usuario esta inactivo");
           } else {
             setSessionStore(formData, "login");
@@ -101,11 +101,11 @@ export function Login() {
   return (
     <section className="h-screen">
       <ToastContainer />
-      <div className="container h-full px-6 py-24">
+      <div className="container h-full px-6 py-6">
         <div className="flex h-full flex-wrap items-center justify-center lg:justify-between">
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
             <img
-              src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+               src={require('../Img/llegar2.jpg')}
               classNameName="w-full"
               alt="Login illustration"
             />

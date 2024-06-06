@@ -72,7 +72,7 @@ export function SignUp(){
           <div class="flex h-full flex-wrap items-center justify-center lg:justify-between">
             <div class="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
               <img
-                src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                src={require('../Img/llegar.jpg')}
                 className="w-full"
                 alt="Login illustration"
               />
