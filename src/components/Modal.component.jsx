@@ -121,6 +121,10 @@ const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origin
                     <option  value={c.id}>{c.name}</option>
                     ))}
                   </select>
+                
+                  {formData.error && formData.error.id_companie && (
+                    <p className="text-sm text-red-500">{formData.error.id_companie}</p>
+                  )}
                 </div>
 
                 <div className="mb-4">

@@ -172,25 +172,32 @@ export function UserPages() {
             <LayoutContainer />
             <ToastContainer />
             <div className="min-h-screen bg-gray-200 py-5">
-            <button
-                onClick={() => Origins('creating', 0)}
-                class="inline-block w-1/12 mt-1 ml-3 mb-2 rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-sm uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                data-twe-ripple-init
-                data-twe-ripple-color="light"
-              >
-                Crear Usuario
-              </button>
-              <form class="flex items-center max-w-xl mx-auto mb-3 -mt-10">   
-                <label for="simple-search" class="sr-only">Search</label>
-                 <div class="relative w-full">
-                   <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                       <FontAwesomeIcon icon={faMagnifyingGlass} />
-                     </svg>
+                
+            <div className=" bg-gray-200 flex justify-center items-center py-5">
+               <div className="bg-gray-300 rounded-lg m-1 w-8/12 flex items-center">
+                      <button
+                          onClick={() => Origins('creating', 0)}
+                          class="inline-block w-1.5/12 m-1 rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-sm uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                          data-twe-ripple-init
+                          data-twe-ripple-color="light"
+                      >
+                          Crear Usuario
+                      </button>
+    
+                      <form class="flex items-center w-8/12 mx-auto m-2">   
+                          <label for="simple-search" class="sr-only">Search</label>
+                          <div class="relative w-full">
+                              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                      <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                  </svg>
+                              </div>
+                              <input type="text" id="filter" value={filter} onChange={set_filter} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search branch name..." required />
+                          </div>
+                      </form>
                    </div>
-                 <input type="text" id="filter" value={filter} onChange={set_filter} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search branch name..." required />
                 </div>
-               </form>
+
                 <div className="overflow-x-auto w-full">
                     <table className="mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
                         <thead className="bg-gray-900">

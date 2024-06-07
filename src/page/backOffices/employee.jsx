@@ -98,6 +98,9 @@ export function Employee() {
         if(!formData.designation){
             error.designation = "Designatio requiered"
         }
+        if(!formData.id_companie){
+            error.id_companie = "Companie requiered"
+        }
 
         setFormData((prevData) => ({
             ...prevData,

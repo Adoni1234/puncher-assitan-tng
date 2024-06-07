@@ -79,7 +79,8 @@ export function Login() {
       const response = await LoginAuth(formData);
       try {
         if (response.usernames) {
-          if (Array.isArray(status) && status.length === 0) {
+          debugger
+          if (status === "" || (Array.isArray(status) && status.length === 0)) {
             toast.error("No puedes acceder, ya que tu usuario esta inactivo");
           } else {
             setSessionStore(formData, "login");
