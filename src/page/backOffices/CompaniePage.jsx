@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../../components/Modal.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useStateUser } from "../../utilitis/utils";
 
 export function CompaniePage(){
     const [dataC, setDataC] = useState([]);
@@ -13,6 +14,7 @@ export function CompaniePage(){
     const [providen, setProviden] = useState(''); 
     const [filter, SetFilter] = useState('')
     const [id , setId] = useState(0)
+    const Profile =  useStateUser()
     const formInitialCompanie = {
         name : "",
         code_identification : ""
@@ -20,8 +22,12 @@ export function CompaniePage(){
     const [formData, setFormData] = useState(formInitialCompanie)
 
     useEffect(() => {
-        fetchData()
-    }, [])
+      if (!Profile) {
+        window.location.href = '/';
+        toast.success('Favor de Iniciar Session', 100);
+      }
+        fetchData();
+    }, [Profile])
 
     const filtered = (event) =>{
        SetFilter(event.target.value)

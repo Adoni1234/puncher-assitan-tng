@@ -35,7 +35,7 @@ export function LayoutContainer() {
              <img className="h-9" src={require('../Img/logo-backoffice.png')} alt="logo" />
             </a>
             <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-              <li><a href="/homen" className="hover:text-gray-200">BackOffice</a></li>
+              <li><a href="/home" className="hover:text-gray-200">BackOffice</a></li>
               <li><a href="/history" className="hover:text-gray-200">Historial</a></li>
               <li className="relative">
               <button onClick={toggleAdminMenu} className="hover:text-gray-200">Administración</button>
