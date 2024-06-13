@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export function Home(){
    const profile = useStateUser();
-
+  
    useEffect(() => {
       if(!profile){
          window.location.href = '/';

@@ -64,25 +64,36 @@ export async function CreateEmployee(data) {
         }
     }
 
-export async function  GetUser(){
-    try{
-      const response = await fetch("https://localhost:7090/api/Backoffice/user", {
-        method : "GET",
-        headers: {
-            "Content-Type": "application/json"
+    export async function GetUser() {
+        const username = '11181540'; 
+        const password = '60-dayfreetrial';
+        const credentials = btoa(`${username}:${password}`);
+    
+        try {
+            const response = await fetch("http://adonimartinezb-001-site1.jtempurl.com/api/Backoffice/user", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Basic ${credentials}`
+                },
+                credentials: 'include' 
+            });
+    
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Error en la solicitud:", response.status, errorText);
+                throw new Error(`Error en la solicitud: ${response.status} ${errorText}`);
+            }
+    
+            const responseData = await response.json();
+            return responseData;
+        } catch (error) {
+            console.error("Error en la solicitud:", error);
+            throw new Error("Error en la solicitud: " + error.message);
         }
-      })
-      if(!response.ok){
-        throw new Error("Error en la solicitud: " + response.status);
-      }
-
-      const responseData = await (response).json()
-      return responseData
     }
-    catch(error){
-        throw new Error("Error en la solicitud: " + error.message);
-    }
-}
+    
+    
 
 export async function CreateUser(data){
     try{
