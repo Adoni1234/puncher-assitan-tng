@@ -70,11 +70,10 @@ export async function CreateEmployee(data) {
         const credentials = btoa(`${username}:${password}`);
     
         try {
-            const response = await fetch("http://adonimartinezb-001-site1.jtempurl.com/api/Backoffice/user", {
+            const response = await fetch("https://localhost:7090/api/Backoffice/user", {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Basic ${credentials}`
+                    "Content-Type": "application/json"
                 },
                 credentials: 'include' 
             });
