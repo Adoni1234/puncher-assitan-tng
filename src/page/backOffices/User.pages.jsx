@@ -49,6 +49,10 @@ export function UserPages() {
 
 
     useEffect(() => {
+        if (!Profile) {
+            window.location.href = '/';
+            toast.error('Favor de Iniciar Session', 100);
+        }
         Data_filter();
     },[Profile, Data_filter]); 
   
