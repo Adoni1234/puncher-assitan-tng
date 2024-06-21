@@ -84,7 +84,7 @@ export function Login() {
             toast.error("No puedes acceder, ya que tu usuario esta inactivo");
           } else {
             setSessionStore(formData, "login");
-            window.location.href = "homen";
+            window.location.href = "home";
             toast(response.message);
           }
         } else {
