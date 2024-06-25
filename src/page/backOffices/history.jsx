@@ -3,12 +3,13 @@ import { LayoutContainer } from "../../components/layaout.container";
 import { GetAgente, GetHistory } from "../../services/BackOffice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { DateFormatUs, before_date, useStateUser } from '../../utilitis/utils';
+import { DateFormatUs, before_date, formatDateString, parseDate, useStateUser } from '../../utilitis/utils';
 
 export function History() {
     const [agente, setAgente] = useState([])
     const [data, setData] = useState([]);
     const Profile = useStateUser();
+    const [total_hours , set_total_hours] = useState('');
 
 
     const [filter, setFilter] = useState({
@@ -30,6 +31,27 @@ export function History() {
         query();
     }
 
+    const TotalHours = (data) => {
+        const totalHours = data.reduce((total, entry) => {
+            const formattedStartDateString = formatDateString(entry.fecha_entrada);
+            const formattedEndDateString = formatDateString(entry.fecha_salida);
+        
+            const startDate = parseDate(formattedStartDateString);
+            const endDate = parseDate(formattedEndDateString);
+
+            if (!startDate || !endDate) {
+              console.error("Fecha inválida en la entrada:", entry);
+              return total;
+            }
+    
+            const differenceInMilliseconds = endDate - startDate;
+            const hours = differenceInMilliseconds / (1000 * 60 * 60);
+            return Math.floor(total + hours);
+          }, 0);
+          
+          set_total_hours(totalHours) 
+    }
+
     useEffect(() => {
         if (!Profile) {
             window.location.href = '/';
@@ -46,6 +68,7 @@ export function History() {
                 const historyData = await GetHistory(filter.employee, fromDate, toDate);
                 const AgenteData = await GetAgente();
                 setData(historyData);
+                TotalHours(historyData)
                 setAgente(AgenteData)
             } catch (error) {
                 if (error.message.includes("Failed to fetch")) {
@@ -68,7 +91,10 @@ export function History() {
                 throw new Error("Las fechas son inválidas");
             }
             const historyData = await GetHistory(filter.employee, fromDate, toDate);
-            setData(historyData);
+            setData(historyData)
+            TotalHours(historyData)
+           
+
         }
         catch (error){
             if (error.message.includes("Failed to fetch")) {
@@ -133,6 +159,9 @@ export function History() {
                         ))}
                     </tbody>
                 </table>
+                <div  className='bg-gray-50 w-full '>
+                     <span className='ml-[85%]'>Total de horas : {total_hours} </span>
+                </div>
             </div>
         </div>
     );

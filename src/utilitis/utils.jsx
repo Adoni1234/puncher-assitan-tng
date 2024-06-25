@@ -44,3 +44,32 @@ export function DateFormatUs(){
     return `${year}-${month}-${day}`;
 } 
 
+export function parseDateIso  (dateString)  {
+    if (!dateString) {
+     console.error("Fecha nula o indefinida:", dateString);
+     return null; 
+   }  
+   const dateObject = new Date(dateString);
+   if (isNaN(dateObject.getTime())) {
+     console.error("Fecha inválida:", dateString);
+     return null;
+   }
+  
+  return dateObject.toISOString();
+}  
+
+ export function parseDate  (dateString)  {
+   dateString = dateString.replace(/\s\s+/g, ' ');
+   dateString = dateString.replace(/([0-9])([AP]M)/, '$1 $2');
+   const date = new Date(dateString);
+   if (isNaN(date.getTime())) {
+     console.error('Fecha inválida:', dateString);
+     return null;
+   }
+   return date;
+}  
+    
+export function formatDateString (dateString) {
+    return dateString.replace(/\s\s+/g, ' ').replace('AM', ' AM').replace('PM', ' PM');
+};
+
