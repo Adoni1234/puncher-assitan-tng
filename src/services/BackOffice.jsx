@@ -2,7 +2,7 @@
 
 export async function GetHistory(employee, from, to) {
     try {
-        const url = new URL(`https://localhost:7090/api/Backoffice/History?employee=${employee}&from=${from.toISOString()}&to=${to.toISOString()}`);
+        const url = new URL(`http://puncher-backend.somee.com/api/Backoffice/History?employee=${employee}&from=${from.toISOString()}&to=${to.toISOString()}`);
 
         const response = await fetch(url, {
             method: "GET",
@@ -24,7 +24,7 @@ export async function GetHistory(employee, from, to) {
 
 export async function GetAgente(){
     try{
-        const response =  await fetch("https://localhost:7090/api/Backoffice/agente", {
+        const response =  await fetch("http://puncher-backend.somee.com/api/Backoffice/agente", {
           method : "GET",
           headers: {
             "Content-Type": "application/json"
@@ -44,7 +44,7 @@ export async function GetAgente(){
 
 export async function CreateEmployee(data) {
         try{
-            const response = await fetch("https://localhost:7090/api/Backoffice/agente/crear", {
+            const response = await fetch("http://puncher-backend.somee.com/api/Backoffice/agente/crear", {
                 method : "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -65,12 +65,8 @@ export async function CreateEmployee(data) {
     }
 
     export async function GetUser() {
-        const username = '11181540'; 
-        const password = '60-dayfreetrial';
-        const credentials = btoa(`${username}:${password}`);
-    
         try {
-            const response = await fetch("https://localhost:7090/api/Backoffice/user", {
+            const response = await fetch("http://puncher-backend.somee.com/api/Backoffice/user", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -96,7 +92,7 @@ export async function CreateEmployee(data) {
 
 export async function CreateUser(data){
     try{
-        const response = await fetch("https://localhost:7090/api/Backoffice/createuser", {
+        const response = await fetch("http://puncher-backend.somee.com/api/Backoffice/createuser", {
           method : "POST",
           headers: {
               "Content-Type": "application/json"
@@ -117,7 +113,7 @@ export async function CreateUser(data){
 
 export async function UpdateUser(data, id){
    try{
-      const response = await fetch(`https://localhost:7090/api/Backoffice/update/user?id=${id}`,{
+      const response = await fetch(`http://puncher-backend.somee.com/api/Backoffice/update/user?id=${id}`,{
         method : "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -140,7 +136,7 @@ export async function UpdateUser(data, id){
 
 export async function UpdateEmployee(data, id){
     try{
-       const response = await fetch(`https://localhost:7090/api/Backoffice/update/agente?id=${id}`,{
+       const response = await fetch(`http://puncher-backend.somee.com/api/Backoffice/update/agente?id=${id}`,{
         method : "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -162,7 +158,7 @@ export async function UpdateEmployee(data, id){
 
 export async function UpdateUserStatus(status, id){
     try{
-       const response = await fetch(`https://localhost:7090/api/Backoffice/update/status?id=${id}`,{
+       const response = await fetch(`http://puncher-backend.somee.com/api/Backoffice/update/status?id=${id}`,{
         method : "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -185,7 +181,7 @@ export async function UpdateUserStatus(status, id){
 
     export async function UpdateEmployeeStatus(status, id){
         try{
-           const response = await fetch(`https://localhost:7090/api/Backoffice/update/status/employee?id=${id}`,{
+           const response = await fetch(`http://puncher-backend.somee.com/api/Backoffice/update/status/employee?id=${id}`,{
             method : "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -208,7 +204,7 @@ export async function UpdateUserStatus(status, id){
 
     export async function GetCodeAccess(){
         try{
-         const response = await fetch("https://localhost:7090/api/Backoffice/code/access", {
+         const response = await fetch("http://puncher-backend.somee.com/api/Backoffice/code/access", {
             method : "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -228,7 +224,7 @@ export async function UpdateUserStatus(status, id){
 
     export async function GetCompanies(){
         try{
-           const response = await fetch("https://localhost:7090/api/Backoffice/compnies", {
+           const response = await fetch("http://puncher-backend.somee.com/api/Backoffice/compnies", {
              method : "GET",
              headers: {
                 "Content-Type": "application/json"
@@ -249,7 +245,7 @@ export async function UpdateUserStatus(status, id){
 
     export async function CreateCompanie(data){
         try{
-           const response = await fetch("https://localhost:7090/api/Backoffice/create/companie", {
+           const response = await fetch("http://puncher-backend.somee.com/api/Backoffice/create/companie", {
              method : "POST",
              headers: {
                 "Content-Type": "application/json"
@@ -270,7 +266,7 @@ export async function UpdateUserStatus(status, id){
     }
     export async function UpdateCompanie(data, id){
         try{
-           const response = await fetch(`https://localhost:7090/api/Backoffice/update/companie?id=${id}`,{
+           const response = await fetch(`http://puncher-backend.somee.com/api/Backoffice/update/companie?id=${id}`,{
             method : "PUT",
             headers: {
                 "Content-Type": "application/json"
