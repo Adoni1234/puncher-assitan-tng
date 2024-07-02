@@ -65,12 +65,8 @@ export async function CreateEmployee(data) {
     }
 
     export async function GetUser() {
-        const username = '11181540'; 
-        const password = '60-dayfreetrial';
-        const credentials = btoa(`${username}:${password}`);
-    
         try {
-            const response = await fetch("https://localhost:7090/api/Backoffice/user", {
+            const response = await fetch("http://puncher-backend.somee.com/api/Backoffice/user", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
