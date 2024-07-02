@@ -1,6 +1,6 @@
 export async function AccessAgent(data) {
     try {
-        const response = await fetch("http://puncher-backend.somee.com/api/Main/access", {
+        const response = await fetch("https://localhost:7090/api/Main/access", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
