@@ -24,7 +24,7 @@ export function Login() {
         const userData = await GetUser();
         setUser(userData);
       } catch (error) {
-        console.error("Error al obtener los usuarios:", error);
+        console.error("Error al obtener los Empleados:", error);
       }
     };
     FetchData();
@@ -79,6 +79,7 @@ export function Login() {
       const response = await LoginAuth(formData);
       try {
         if (response.usernames) {
+          debugger
           if (status === "" || (Array.isArray(status) && status.length === 0)) {
             toast.error("No puedes acceder, ya que tu usuario esta inactivo");
           } else {

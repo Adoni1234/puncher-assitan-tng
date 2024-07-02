@@ -1,6 +1,6 @@
 export async function LoginAuth(data) {
    try {
-      const response = await fetch("/api/Authentication/login", {
+      const response = await fetch("http://puncher-backend.somee.com/api/Authentication/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -21,7 +21,7 @@ export async function LoginAuth(data) {
 
 export async function RegisterAuth (data){
   try {
-    const response = await fetch("/api/Authentication/register", {
+    const response = await fetch("https://localhost:7090/api/Authentication/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
