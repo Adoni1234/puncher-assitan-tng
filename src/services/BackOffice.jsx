@@ -66,7 +66,7 @@ export async function CreateEmployee(data) {
 
     export async function GetUser() {
         try {
-            const response = await fetch("http://puncher-backend.somee.com/api/Backoffice/user", {
+            const response = await fetch("https://puncher-backend.somee.com/api/Backoffice/user", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
