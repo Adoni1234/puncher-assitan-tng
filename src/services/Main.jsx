@@ -1,6 +1,8 @@
+import config from "../config";
+
 export async function AccessAgent(data) {
     try {
-        const response = await fetch("https://puncher-backend.somee.com/api/Main/access", {
+        const response = await fetch(`${config.apiUrl}/api/Main/access`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

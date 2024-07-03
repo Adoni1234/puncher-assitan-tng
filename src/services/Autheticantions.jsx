@@ -1,6 +1,8 @@
+import config from "../config";
+
 export async function LoginAuth(data) {
    try {
-      const response = await fetch("https://puncher-backend.somee.com/api/Authentication/login", {
+      const response = await fetch(`${config.apiUrl}/api/Authentication/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -21,7 +23,7 @@ export async function LoginAuth(data) {
 
 export async function RegisterAuth (data){
   try {
-    const response = await fetch("https://puncher-backend.somee.com/api/Authentication/register", {
+    const response = await fetch(`${config.apiUrl}/api/Authentication/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
