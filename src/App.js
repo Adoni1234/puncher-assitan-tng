@@ -9,6 +9,7 @@ import { Employee } from './page/backOffices/employee';
 import { UserPages } from './page/backOffices/User.pages';
 import { CodePage } from './page/backOffices/Code';
 import { CompaniePage } from './page/backOffices/CompaniePage';
+import RestorePage from './page/backOffices/RestorePasswordPage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="user" element={<UserPages />}></Route>
         <Route path="code" element={<CodePage />}></Route>
         <Route path="companie" element={<CompaniePage />}></Route>
+        <Route path="password/:id" element={<RestorePage />}></Route>
       </Routes>
     </Router>
   </div>

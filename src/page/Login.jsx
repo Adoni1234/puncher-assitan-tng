@@ -83,7 +83,7 @@ export function Login() {
           if (status === "" || (Array.isArray(status) && status.length === 0)) {
             toast.error("No puedes acceder, ya que tu usuario esta inactivo");
           } else {
-            setSessionStore(formData, "login");
+            setSessionStore(response.usernames, "login");
             window.location.href = "home";
             toast(response.message);
           }

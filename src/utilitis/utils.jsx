@@ -13,8 +13,9 @@ export function GetSessionStore() {
 
     const data_client =  JSON.parse(DataStore)
     const username = data_client? data_client.username : null ;
+    const id = data_client? data_client.id : null ;
 
-    return username
+    return [username,id]
 }
 
 export const useStateUser = () => {

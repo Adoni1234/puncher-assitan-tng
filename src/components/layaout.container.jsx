@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
 import { GetSessionStore, closedSections } from '../utilitis/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDoorClosed } from '@fortawesome/free-solid-svg-icons';
+import { faDoorClosed, faLock, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 
 export function LayoutContainer() {
   const [username, setUsername] = useState('') ;
+  const [id, setId] = useState("") ;
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/password/${id}`);
+  };
 
   useEffect(() => {
     lookFor();
@@ -13,7 +21,8 @@ export function LayoutContainer() {
 
    const lookFor = () => {
     const profile = GetSessionStore();
-      setUsername(profile) 
+      setUsername(profile[0]) 
+      setId(profile[1])
     }
 
     const closed = () => {
@@ -50,7 +59,11 @@ export function LayoutContainer() {
             <li><a href="/contact" className="hover:text-gray-200">Contacto</a></li>
             <li><a href="/about" className="hover:text-gray-200">Acerca de</a></li>
            </ul>
-            <p className='mr-1'>{username}</p>
+             <button onClick={handleClick} title='Cambiar Contraseña' className="relative inline-block mr-4">
+              <FontAwesomeIcon icon={faLock} className="text-blue-500" />
+              <FontAwesomeIcon icon={faPencilAlt} className="absolute top-0 right-0 text-red-500 text-xs" />
+             </button>
+             <p className='mr-1'>{username}</p>
             /
             <button className='ml-1' onClick={closed}>Cerrar Session <FontAwesomeIcon icon={faDoorClosed} /> </button>
           </div>

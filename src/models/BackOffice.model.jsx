@@ -7,3 +7,10 @@ export const initialFormData = {
     designation : "",
     error: {}
 };
+
+export const DataRestorePass = {
+    Id: "",
+    current_password : "",
+    password : "",
+    error: {}
+}

@@ -43,3 +43,25 @@ export async function RegisterAuth (data){
    throw new Error("Error al registrarce: ", error)
   }
 }
+
+export async function restorePassword(data) {
+  try{
+     const response = await fetch(`${config.apiUrl}/api/Authentication/restore/Password`, {
+       method : "PUT",
+       headers: {
+        "Content-Type": "application/json"
+      },
+      body : JSON.stringify(data)
+     })
+
+     if(!response.ok){
+       throw new Error("Error en la solicitud: " + response.status ?? response.message);
+     }
+
+     const responseData = await response.json();
+     return responseData
+  }
+  catch(error){
+     console.log( "Error al cambiar la contraseña: ", error.message)
+  }
+}
