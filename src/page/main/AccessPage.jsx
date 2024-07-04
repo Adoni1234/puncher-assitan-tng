@@ -8,7 +8,9 @@ export function AccessPage() {
 
     useEffect(() => {
         if (code.trim() !== "") {
+           setTimeout(() => {
             handleSubmit();
+           }, 2000); 
         }
     }, [code]);
 
@@ -20,7 +22,12 @@ export function AccessPage() {
     const handleSubmit = async () => {
       try {
         const response = await AccessAgent({ code: code });
-        toast('Asistencia registrada correctamente de: ' + response.name, 200);
+        if(response.message && !response.name){
+          toast.error(response.message)
+        }
+        if(response.name){
+          toast('Asistencia registrada correctamente de: ' + response.name, 200);
+        }
         console.log(response);
         setCode("")
       } catch (error) {
