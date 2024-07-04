@@ -12,7 +12,7 @@ export function AccessPage() {
             handleSubmit();
            }, 2000); 
         }
-    }, [code]);
+    });
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -24,12 +24,13 @@ export function AccessPage() {
         const response = await AccessAgent({ code: code });
         if(response.message && !response.name){
           toast.error(response.message)
+          setCode("")
         }
         if(response.name){
           toast('Asistencia registrada correctamente de: ' + response.name, 200);
+          setCode("")
         }
         console.log(response);
-        setCode("")
       } catch (error) {
         console.error("Error al enviar la solicitud:", error);
       }
