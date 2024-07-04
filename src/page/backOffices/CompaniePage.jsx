@@ -31,6 +31,7 @@ export function CompaniePage(){
 
     const filtered = (event) =>{
        SetFilter(event.target.value)
+       fetchData();
     }
 
     const handleChange = (event) =>{
@@ -49,7 +50,7 @@ export function CompaniePage(){
     const fetchData = useCallback(async () =>  {
         try{
            const data = await GetCompanies()
-           if(filter){
+           if(filter != null | undefined | ""){
              const filtered =  data.filter(d => d.name.includes(filter))
              setDataC(filtered)
            }else{
@@ -153,11 +154,11 @@ export function CompaniePage(){
               <div className="ml-[10rem] flex h-[80%] w-8/12 mt-2 ">
                 <button
                   onClick={() => Origins('creating', 0)}
-                  className="mr-2 h-[80%] text-xs inline-block rounded bg-warning px-6 pb-2 pt-1   uppercase leading-normal text-white shadow-warning-3 transition duration-150 ease-in-out hover:bg-warning-accent-300 hover:shadow-warning-2 focus:bg-warning-accent-300 focus:shadow-warning-2 focus:outline-none focus:ring-0 active:bg-warning-600 active:shadow-warning-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+                  className="mr-2 h-[80%] text-xs inline-block rounded bg-sky-500 px-6 pb-2 pt-1   uppercase leading-normal text-white shadow-warning-3 transition duration-150 ease-in-out hover:bg-warning-accent-300 hover:shadow-warning-2 focus:bg-warning-accent-300 focus:shadow-warning-2 focus:outline-none focus:ring-0 active:bg-warning-600 active:shadow-warning-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
                   Crear Compañia
                 </button>
       
-                <form action="/search" className="w-full  px-4">
+                <div  className="w-full  px-4">
                   <div className="relative">
                     <input 
                      type="text" 
@@ -165,23 +166,23 @@ export function CompaniePage(){
                      value={filter} 
                      onChange={filtered}
                      className="w-full border h-10 shadow p-4 rounded-full dark:text-gray-800 dark:border-gray-700 dark:bg-gray-200" placeholder="search" />
-                    <button type="submit">
+                    <div>
                       <svg className="text-teal-400 h-5 w-5 absolute top-3 right-3 fill-current dark:text-teal-300"
                         version="1.1"
                         x="0px" y="0px" viewBox="0 0 56.966 56.966"
                         xmlSpace="preserve">
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                       </svg>
-                    </button>
+                    </div>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
       
           <div className="ml-[25%] mt-12 relative overflow-x-auto shadow-md sm:rounded-lg m-5 w-6/12">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <thead className="text-xs text-white uppercase bg-gray-900 dark:bg-gray-900 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
                     Nombre
@@ -204,7 +205,7 @@ export function CompaniePage(){
                     <td className="px-6 py-4 text-center">
                     <button
                       onClick={() => Origins('editing', a)}
-                      className="mr-2 h-[80%] text-xs inline-block rounded bg-warning px-6 pb-2 pt-1   uppercase leading-normal text-white shadow-warning-3 transition duration-150 ease-in-out hover:bg-warning-accent-300 hover:shadow-warning-2 focus:bg-warning-accent-300 focus:shadow-warning-2 focus:outline-none focus:ring-0 active:bg-warning-600 active:shadow-warning-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+                      className="mr-2 h-[80%] text-xs inline-block rounded bg-sky-500 px-6 pb-2 pt-1   uppercase leading-normal text-white shadow-warning-3 transition duration-150 ease-in-out hover:bg-warning-accent-300 hover:shadow-warning-2 focus:bg-warning-accent-300 focus:shadow-warning-2 focus:outline-none focus:ring-0 active:bg-warning-600 active:shadow-warning-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
                       editar
                     </button>
       

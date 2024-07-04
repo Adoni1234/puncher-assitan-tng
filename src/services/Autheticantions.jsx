@@ -31,7 +31,6 @@ export async function RegisterAuth (data){
       body: JSON.stringify(data)
     });
 
-
      if(!response.ok){
       throw new Error("Error en la solicitud: " + response.status);
      }

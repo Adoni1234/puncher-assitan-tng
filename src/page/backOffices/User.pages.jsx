@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useStateUser } from "../../utilitis/utils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faRotate, faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faRotate, faRotateRight, faUser } from "@fortawesome/free-solid-svg-icons";
 
 export function UserPages() {
     const [userId, setUserId] = useState(''); 
@@ -215,7 +215,7 @@ export function UserPages() {
                                     <td className="px-6 py-4">
                                         <div className="flex items-center space-x-3">
                                             <div className="inline-flex w-10 h-10"> 
-                                                <img className='w-10 h-10 object-cover rounded-full' alt='User avatar' src={require('../../Img/user.png')} /> 
+                                              <FontAwesomeIcon icon={faUser} className='w-8 h-8 object-cover rounded-full' />
                                             </div>
                                             <div>
                                                 <p> {c.username} </p>
