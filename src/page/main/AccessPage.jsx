@@ -22,6 +22,7 @@ export function AccessPage() {
         const response = await AccessAgent({ code: code });
         toast('Asistencia registrada correctamente de: ' + response.name, 200);
         console.log(response);
+        setCode("")
       } catch (error) {
         console.error("Error al enviar la solicitud:", error);
       }
