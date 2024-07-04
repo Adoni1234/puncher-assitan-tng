@@ -19,7 +19,6 @@ export function AccessPage() {
   
     const handleSubmit = async () => {
       try {
-        alert(code);
         const response = await AccessAgent({ code: code });
         toast('Asistencia registrada correctamente de: ' + response.name, 200);
         console.log(response);
