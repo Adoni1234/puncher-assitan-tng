@@ -14,3 +14,21 @@ export const DataRestorePass = {
     password : "",
     error: {}
 }
+
+export const DataAuthenticato = {
+    username: "",
+    password: "",
+    error: {},
+}
+
+export const DataUser = {
+    username: '',
+    email: '',
+    cedula: '',
+    error: {}  
+}
+
+export const DataCompanies = {
+    name : "",
+    code_identification : ""
+}

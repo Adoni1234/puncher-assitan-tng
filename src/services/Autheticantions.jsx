@@ -17,7 +17,8 @@ export async function LoginAuth(data) {
       const responseData = await response.json(); 
       return responseData;
    } catch (error) {
-      throw new Error('Hubo un error en la autenticación: ' + error.message);
+     console.log('Hubo un error en la autenticación: ' + error.message);
+     return 'Http Timeout'
    }
 }
 

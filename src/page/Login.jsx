@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { setSessionStore } from "../util/utils";
 import { ToastContainer, toast } from "react-toastify";
 import { GetUser } from "../services/BackOffice";
+import { GetSessionStore } from "../utilitis/utils";
+import { DataAuthenticato } from "../models/BackOffice.model";
 
 initTWE({ Input, Ripple });
 
@@ -12,17 +14,20 @@ export function Login() {
   const [user, setUser] = useState([]);
   const [status, setStatus] = useState("");
 
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    error: {},
-  });
+  const [formData, setFormData] = useState(DataAuthenticato);
 
   useEffect(() => {
     const FetchData = async () => {
       try {
         const userData = await GetUser();
         setUser(userData);
+        const SessionData = GetSessionStore();
+       
+        const valider_user = userData.filter((u) => u.username === SessionData[0])
+        
+        if(valider_user.length > 0){
+          window.location.href = "home";
+        }
       } catch (error) {
         console.error("Error al obtener los Empleados:", error);
       }
@@ -30,15 +35,16 @@ export function Login() {
     FetchData();
   }, []);
 
-  const validate_Status = () => {
+  const validate_Status = (data) => {
     const verifications_User = user.filter(
       (u) =>
-        u.username === formData.username && u.password === formData.password
+        u.username === data.username && u.password === data.password
     );
     const verifications_status = verifications_User
       .filter((u) => u.status === "Activo")
       .map((a) => a.status);
-    setStatus(verifications_status);
+    console.log(verifications_status)
+    return (verifications_status[0] === "Activo") ? true : false
   };
 
   const handleChange = (event) => {
@@ -74,13 +80,13 @@ export function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    validate_Status();
+
     if (validatorForm()) {
       const response = await LoginAuth(formData);
       try {
         if (response.usernames) {
-          debugger
-          if (status === "" || (Array.isArray(status) && status.length === 0)) {
+         const status_is_active = validate_Status(response.usernames);
+          if (!status_is_active) {
             toast.error("No puedes acceder, ya que tu usuario esta inactivo");
           } else {
             setSessionStore(response.usernames, "login");
@@ -88,11 +94,15 @@ export function Login() {
             toast(response.message);
           }
         } else {
-          toast.error("Invalid username or password");
+          if(response === 'Http Timeout'){
+            toast.error('Http Timeout')
+          }else{
+            toast.error("Invalid username or password");
+          }
         }
       } catch (error) {
         console.log(error);
-        toast.error("There was an error during authentication");
+          toast.error("There was an error during authentication");
       }
     } else {
       toast.error("Invalid data");

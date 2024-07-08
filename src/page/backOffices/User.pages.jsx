@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useStateUser } from "../../utilitis/utils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faRotate, faRotateRight, faUser } from "@fortawesome/free-solid-svg-icons";
+import { DataUser } from "../../models/BackOffice.model";
 
 export function UserPages() {
     const [userId, setUserId] = useState(''); 
@@ -14,22 +15,16 @@ export function UserPages() {
     const [providen, setProviden] = useState(''); 
     const Profile =  useStateUser()
     const [filter, SetFilter] = useState('')
-    const initialFormData = {
-        username: '',
-        email: '',
-        cedula: '',
-        error: {}  
-    };
 
     const [user, setUser] = useState([]);
-    const [FormData, SetFormData] = useState(initialFormData);
+    const [FormData, SetFormData] = useState(DataUser);
     const set_filter = (event) => {
         SetFilter(event.target.value)
     }
 
 
     const reset_values = () =>{
-        SetFormData(initialFormData)
+        SetFormData(DataUser)
         setIsModalOpen(false)
     }
 

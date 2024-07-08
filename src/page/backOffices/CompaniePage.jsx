@@ -7,6 +7,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../../components/Modal.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useStateUser } from "../../utilitis/utils";
+import { DataCompanies } from "../../models/BackOffice.model";
 
 export function CompaniePage(){
     const [dataC, setDataC] = useState([]);
@@ -15,11 +16,8 @@ export function CompaniePage(){
     const [filter, SetFilter] = useState('')
     const [id , setId] = useState(0)
     const Profile =  useStateUser()
-    const formInitialCompanie = {
-        name : "",
-        code_identification : ""
-    }
-    const [formData, setFormData] = useState(formInitialCompanie)
+
+    const [formData, setFormData] = useState(DataCompanies)
 
     useEffect(() => {
       if (!Profile) {

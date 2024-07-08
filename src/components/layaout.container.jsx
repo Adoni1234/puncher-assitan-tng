@@ -41,7 +41,7 @@ export function LayoutContainer() {
 
   return (
     <div>
-      <nav className="flex justify-between bg-gray-900 text-white w-screen">
+      <nav className="flex justify-between bg-gray-900 text-white w-screen ">
         <div className="px-5 xl:px-12 py-6 flex w-full items-center">
           <a className="text-3xl font-bold font-heading" href="/">
             <img className="h-9" src={require('../Img/logo-backoffice.png')} alt="logo" />
@@ -76,7 +76,7 @@ export function LayoutContainer() {
           </a>
         </div>
       </nav>
-      <ul className={`mt-4 space-y-2 ${isMenuOpen ? 'block' : 'hidden'} xl:flex px-4 mx-auto font-semibold font-heading space-x-12`}>
+      <ul className={`mt-2 relative space-y-2 ${isMenuOpen ? 'block' : 'hidden'} bg-gray-100 rounded-xl xl:flex px-4 mx-auto font-semibold font-heading space-x-12 w-7/12 z-20`}>
         <li><a href="/home" className="hover:text-gray-200">BackOffice</a></li>
         <li><a href="/history" className="hover:text-gray-200">Historial</a></li>
         <li className="relative">
