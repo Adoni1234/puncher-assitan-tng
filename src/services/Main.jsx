@@ -17,6 +17,7 @@ export async function AccessAgent(data) {
         const responseData = await response.json();
         return responseData;
     } catch (error) {
-        throw new Error("Error al enviar la solicitud: " + error.message);
+        console.error("Error al enviar la solicitud:", error.message);
+        return { error: true, message: error.message, status: error.status || 500 };
     }
 }

@@ -22,19 +22,26 @@ export function AccessPage() {
           handleSubmit(debouncedValue);
         }
       }, [debouncedValue]);
+      
   
     const handleSubmit = async (value) => {
       try {
         const response = await AccessAgent({ code: value });
+
         if(response.message && !response.name){
-          toast.error(response.message)
+          if(response.status === 500 && response.message.includes("400")){
+            toast.error("El codigo del empleado esta Inactivo.")
+          }else{
+            toast.error(response.message)
+          }
           setCode("")
         }
+        
         if(response.name){
           toast('Asistencia registrada correctamente de: ' + response.name, 200);
           setCode("")
         }
-        console.log(response);
+
       } catch (error) {
         console.error("Error al enviar la solicitud:", error);
       }
