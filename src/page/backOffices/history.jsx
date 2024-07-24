@@ -4,6 +4,10 @@ import { GetAgente, GetHistory } from "../../services/BackOffice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DateFormatUs, before_date, formatDateString, parseDate, useStateUser } from '../../utilitis/utils';
+import MyDocument from '../../components/document';
+import { pdf } from '@react-pdf/renderer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
 export function History() {
     const [agente, setAgente] = useState([])
@@ -11,6 +15,15 @@ export function History() {
     const Profile = useStateUser();
     const [total_hours , set_total_hours] = useState('');
 
+    const downloadPdf = async () => {
+        const blob = await pdf(<MyDocument data={data} totalHours={total_hours} />).toBlob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'document.pdf';
+        a.click();
+        URL.revokeObjectURL(url);
+      };
 
     const [filter, setFilter] = useState({
         employee : 'employee',
@@ -127,7 +140,9 @@ export function History() {
                   <label for="countries"  class="block text-sm font-medium text-gray-900 dark:text-white">Hasta</label>
                   <input type='date' value={filter.until} onChange={handleChangeAndQuery} name='until' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                </div>
+               <button onClick={downloadPdf} className='bg-blue-700 text-white rounded-lg mt-5 ml-3 h-12 w-60'>Exportar PDF <FontAwesomeIcon  icon={faFilePdf} /></button>
             </div>
+
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-5">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
