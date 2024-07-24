@@ -20,8 +20,9 @@ export function GetSessionStore() {
 
 export const useStateUser = () => {
     const username = GetSessionStore();
+    console.log(username)
 
-    if(username != null){
+    if(username[0] != null){
         return true
     }
 
