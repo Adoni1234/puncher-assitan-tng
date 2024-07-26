@@ -168,7 +168,7 @@ export function UserPages() {
             <div className="min-h-screen bg-gray-200 py-5">
                 
             <div className=" bg-gray-200 flex justify-center items-center py-5">
-               <div className="bg-gray-300 rounded-lg m-1 w-8/12 flex items-center">
+               <div className="bg-gray-300 rounded-lg m-1 ml-8 w-8/12 flex items-center p-2">
                       <button
                           onClick={() => Origins('creating', 0)}
                           class="inline-block w-1.5/12 m-1 rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-sm uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
@@ -192,12 +192,12 @@ export function UserPages() {
                    </div>
                 </div>
 
-                <div className="overflow-x-auto w-full">
-                    <table className="mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
+                <div className="overflow-x-auto w-full p-4">
+                    <table className="mx-auto max-w-8xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
                         <thead className="bg-gray-900">
                             <tr className="text-white text-left">
                                 <th className="font-semibold text-sm uppercase px-6 py-4"> Name </th>
-                                <th className="font-semibold text-sm uppercase px-6 py-4 text-center"> Status </th>
+                                <th className="font-semibold text-sm uppercase px-6 py-4 text-center "> Status </th>
                                 <th className="font-semibold text-sm uppercase px-6 py-4 text-center"> Cedula </th>
                                 <th className="font-semibold text-sm uppercase px-6 py-4"> </th>
                                 <th className="font-semibold text-sm uppercase px-6 py-4"> </th>
@@ -212,14 +212,14 @@ export function UserPages() {
                                               <FontAwesomeIcon icon={faUser} className='w-8 h-8 object-cover rounded-full' />
                                             </div>
                                             <div>
-                                                <p> {c.username} </p>
+                                                <p className="font-bold text-lg"> {c.username} </p>
                                                 <p className="text-gray-500 text-sm font-semibold tracking-wide">{c.email}</p>
                                             </div>
                                         </div>
                                     </td>
 
                                     <td className="px-6 py-4 text-center"> 
-                                        <span className="text-white text-sm w-1/3 pb-1 bg-green-600 font-semibold px-2 rounded-full"> {c.status} </span> 
+                                        <span className="text-white font-bold text-sm w-1/3 pb-1 bg-green-600 px-2 rounded-full"> {c.status} </span> 
                                     </td>
                                     <td className="px-6 py-4 text-center"> {c.cedula}</td>
                                     <td className="px-6 py-4 text-center"> 

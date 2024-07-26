@@ -191,13 +191,13 @@ export function Employee() {
     return (
         <div>
         <LayoutContainer />
-         <div className="min-h-screen bg-gray-200 py-5">
+         <div className="min-h-screen   bg-gray-200 py-5">
             <ToastContainer />
 
-            <div className=" justify-center bg-gray-300 rounded-lg m-3">
+            <div className="items-center w-12/12 px-8 m-8 bg-gray-300 rounded-lg mb-8  ">
 
-              <div className="flex items-center space-x-3">
-                <div className="w-2/12 ml-[12rem]">
+              <div className="flex items-center space-x-2 p-3">
+                <div className=" w-2/12 md:w-auto ml-[12rem] lg:ml-0">
                   <select id="countries" name='filter_companie' value={filter_companie}  onChange={set_filter_companie} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="" selected>(seleccionar)</option>
                     { dataCompanie.map((c) => (
@@ -206,7 +206,7 @@ export function Employee() {
                   </select>
                 </div>
               
-                <form className="flex items-center max-w-xl w-5/12 mx-auto ">   
+                <form className="flex items-center max-w-2xl w-6/12 mx-auto ">   
                   <label for="simple-search" className="sr-only">Search</label>
                   <div className="relative w-full">
 
@@ -228,8 +228,8 @@ export function Employee() {
             </div>
           </div>
 
-        <div className='overflow-x-auto w-full'>
-            <table className='mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden'>
+        <div className='overflow-x-auto w-full px-7 '>
+            <table className='mx-auto max-w-8xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden'>
                 <thead className="bg-gray-900">
                     <tr className="text-white text-left">
                         <th className="font-semibold text-sm uppercase px-6 py-4"> Name </th>

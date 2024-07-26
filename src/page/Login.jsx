@@ -110,11 +110,11 @@ export function Login() {
   };
 
   return (
-    <section className="h-screen">
+    <section className="h-screen w-screen">
       <ToastContainer />
-      <div className="container h-full px-6 py-6">
-        <div className="flex h-full flex-wrap items-center justify-center lg:justify-between">
-          <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
+      <div className=" w-full h-full px-6 py-6">
+        <div className="flex w-full h-full flex-wrap items-center justify-center ">
+          <div className="mb-12 md:mb-0 w-full md:w-8/12 lg:w-5/12 xl:w-5/12">
             <img
                src={require('../Img/llegar2.jpg')}
               classNameName="w-full"
@@ -122,7 +122,7 @@ export function Login() {
             />
           </div>
 
-          <div className="md:w-8/12 lg:ms-6 lg:w-5/12">
+          <div className="md:w-8/12 lg:ms-2 lg:w-5/12 md:mt-[10rem]">
             <h1 classNameName="text-center font-bold text-3xl">Conéctese</h1>
             <form onSubmit={handleSubmit}>
               <div className="relative mb-6" data-twe-input-wrapper-init>

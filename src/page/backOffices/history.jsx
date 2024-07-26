@@ -147,13 +147,13 @@ export function History() {
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-6 py-3 font-bold text-lg">
                                 Nombre Del Empleado
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-6 py-3 font-bold text-lg">
                                 Fecha De Entrada
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-6 py-3 font-bold text-lg">
                                 Fecha De Salida
                             </th>
                         </tr>
@@ -161,7 +161,7 @@ export function History() {
                     <tbody>
                         {data.map((a, index) => (
                             <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" className="px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
                                     {a.agentName}
                                 </th>
                                 <td className="px-6 py-4">
@@ -174,8 +174,8 @@ export function History() {
                         ))}
                     </tbody>
                 </table>
-                <div  className='bg-gray-50 w-full '>
-                     <span className='ml-[85%]'>Total de horas : {total_hours} </span>
+                <div  className='bg-gray-50 justify-end w-full '>
+                     <span className='ml-[85%] font-bold text-lg'>Total de horas : {total_hours} </span>
                 </div>
             </div>
         </div>
