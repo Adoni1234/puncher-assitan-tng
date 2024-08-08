@@ -7,7 +7,6 @@ export function closedSections(data, name){
     sessionStorage.removeItem('Client')
 }
 
-
 export function GetSessionStore() {
     const DataStore = sessionStorage.getItem('Client')
 
@@ -20,12 +19,9 @@ export function GetSessionStore() {
 
 export const useStateUser = () => {
     const username = GetSessionStore();
-    console.log(username)
-
     if(username[0] != null){
         return true
     }
-
     return false
 };
 
@@ -60,18 +56,21 @@ export function parseDateIso  (dateString)  {
   return dateObject.toISOString();
 }  
 
- export function parseDate  (dateString)  {
-   dateString = dateString.replace(/\s\s+/g, ' ');
-   dateString = dateString.replace(/([0-9])([AP]M)/, '$1 $2');
-   const date = new Date(dateString);
-   if (isNaN(date.getTime())) {
-     console.error('Fecha inválida:', dateString);
-     return null;
-   }
-   return date;
-}  
+export function parseDate(dateString) {
+    if (!dateString) return null;
     
-export function formatDateString (dateString) {
-    return dateString.replace(/\s\s+/g, ' ').replace('AM', ' AM').replace('PM', ' PM');
-};
+    dateString = dateString.replace(/\s\s+/g, ' ');
+    dateString = dateString.replace(/([0-9])([AP]M)/, '$1 $2');
+    
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+        console.error('Fecha inválida:', dateString);
+        return null;
+    }
+    return date;
+}
 
+export function formatDateString(dateString) {
+    if (!dateString) return '';
+    return dateString.replace(/\s\s+/g, ' ').replace('AM', ' AM').replace('PM', ' PM');
+}

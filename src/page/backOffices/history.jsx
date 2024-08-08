@@ -46,47 +46,52 @@ export function History() {
 
     const TotalHours = (data) => {
         const totalHours = data.reduce((total, entry) => {
+            if (!entry.fecha_entrada || !entry.fecha_salida) return total;
+    
             const formattedStartDateString = formatDateString(entry.fecha_entrada);
             const formattedEndDateString = formatDateString(entry.fecha_salida);
-        
+    
             const startDate = parseDate(formattedStartDateString);
             const endDate = parseDate(formattedEndDateString);
-
+    
             if (!startDate || !endDate) {
-              console.error("Fecha inválida en la entrada:", entry);
-              return total;
+                console.error("Fecha inválida en la entrada:", entry);
+                return total;
             }
     
             const differenceInMilliseconds = endDate - startDate;
             const hours = differenceInMilliseconds / (1000 * 60 * 60);
-            return Math.floor(total + hours);
-          }, 0);
-          
-          set_total_hours(totalHours) 
-    }
+            return total + hours;
+        }, 0);
 
+        set_total_hours(Math.floor(totalHours));
+    };
+    
     useEffect(() => {
         if (!Profile) {
             window.location.href = '/';
             toast.error('Favor de Iniciar Session', 100);
         }
+    
         const fetchData = async () => {
             try {
                 const fromDate = new Date(filter.since);
                 const toDate = new Date(filter.until);
-                
+    
                 if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
                     toast.error("Las fechas son inválidas");
-                }   
+                    return;
+                }
+    
                 const historyData = await GetHistory(filter.employee, fromDate, toDate);
                 const AgenteData = await GetAgente();
                 setData(historyData);
-                TotalHours(historyData)
-                setAgente(AgenteData)
+                TotalHours(historyData);
+                setAgente(AgenteData);
             } catch (error) {
                 if (error.message.includes("Failed to fetch")) {
                     toast.error("Http Timeout", 200);
-                 }
+                }
                 console.error("Error al obtener el historial:", error);
             }
         };
