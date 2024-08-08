@@ -6,11 +6,11 @@ export function CodePage(){
     const [data, setData] = useState([]);
 
     useEffect(()=>{
-            const fechData = async () =>{
-                const GetCode = await GetCodeAccess()
-                setData(GetCode)
-            }
-            fechData();
+      const fechData = async () =>{
+      const GetCode = await GetCodeAccess()
+      setData(GetCode)
+      }
+      fechData();
     })
     return(
         <div>

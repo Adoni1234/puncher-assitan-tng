@@ -3,7 +3,7 @@ import { CreateCompanie, GetCompanies, UpdateCompanie } from "../../services/Bac
 import { LayoutContainer } from "../../components/layaout.container";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../../components/Modal.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useStateUser } from "../../utilitis/utils";
@@ -156,14 +156,14 @@ export function CompaniePage(){
                   Crear Compañia
                 </button>
       
-                <div  className="w-full  px-4">
+                <div  className="w-full px-4">
                   <div className="relative">
                     <input 
                      type="text" 
                      id="filter" 
                      value={filter} 
                      onChange={filtered}
-                     className="w-full border h-10 shadow p-4 rounded-full dark:text-gray-800 dark:border-gray-700 dark:bg-gray-200" placeholder="search" />
+                     className="w-full border h-10 shadow p-4 rounded-full dark:text-gray-800 dark:border-gray-700 dark:bg-gray-200" placeholder="Buscar..." />
                     <div>
                       <svg className="text-teal-400 h-5 w-5 absolute top-3 right-3 fill-current dark:text-teal-300"
                         version="1.1"
@@ -203,8 +203,8 @@ export function CompaniePage(){
                     <td className="px-6 py-4 text-center">
                     <button
                       onClick={() => Origins('editing', a)}
-                      className="mr-2 h-[80%] text-xs inline-block rounded bg-sky-500 px-6 pb-2 pt-1   uppercase leading-normal text-white shadow-warning-3 transition duration-150 ease-in-out hover:bg-warning-accent-300 hover:shadow-warning-2 focus:bg-warning-accent-300 focus:shadow-warning-2 focus:outline-none focus:ring-0 active:bg-warning-600 active:shadow-warning-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
-                      editar
+                      className="mr-2 h-[80%] text-xs inline-block rounded bg-sky-500 px-6 pb-2 pt-1   uppercase leading-normal text-white shadow-warning-3  ">
+                      <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
       
                     </td>
@@ -220,7 +220,7 @@ export function CompaniePage(){
              formData={formData}
              type={providen}
              handleChange={handleChange}
-             origins={"companie"}
+             origins={"Compañia"}
            />
         </div>
       );

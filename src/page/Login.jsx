@@ -12,7 +12,6 @@ initTWE({ Input, Ripple });
 
 export function Login() {
   const [user, setUser] = useState([]);
-  const [status, setStatus] = useState("");
 
   const [formData, setFormData] = useState(DataAuthenticato);
 

@@ -8,6 +8,7 @@ import { useStateUser } from "../../utilitis/utils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRotate, faRotateRight, faMagnifyingGlass, faUserTie } from "@fortawesome/free-solid-svg-icons";
 import { initialFormData } from "../../models/BackOffice.model";
+import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 export function Employee() {
     const [agente, setAgente] = useState([])
@@ -206,19 +207,24 @@ export function Employee() {
                   </select>
                 </div>
               
-                <form className="flex items-center max-w-2xl w-6/12 mx-auto ">   
-                  <label for="simple-search" className="sr-only">Search</label>
-                  <div className="relative w-full">
+                <form className="flex items-center max-w-2xl w-6/12 mx-auto">
+                   <label htmlFor="simple-search" className="sr-only">Search</label>
+                   <div className="relative w-full">
+                     <input
+                       type="text"
+                       id="filter"
+                       value={filter}
+                       onChange={(e) => set_filter(e.target.value)}
+                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar..."
+                       required
+                     />
+                     <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                       <FontAwesomeIcon icon={faMagnifyingGlass} className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                     </div>
+                   </div>
+               </form>
 
-                    <input type="text" id="filter" value={filter} onChange={set_filter} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." required />
-                    <div className="absolute inset-y-0 start-[30rem] flex items-center ps-3 pointer-events-none">
-                      <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                      </svg>
-                    </div>
-                  </div>
-                </form>
-              
               <button
                 onClick={() => Origins('creating', 0)}
                 className="inline-block mt-1  mb-2 rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-sm uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
@@ -258,12 +264,12 @@ export function Employee() {
                               <p className="text-gray-500 text-sm font-semibold tracking-wide"> {c.name_companie} </p>
                           </td>
                           <td className="px-6 py-4">
-                              <p className="text-gray-500 text-sm font-semibold tracking-wide"> {c.designation} </p>
+                              <p className="text-gray-500 text-sm text-center font-semibold tracking-wide"> {c.designation} </p>
                           </td>
                           <td className="px-6 py-4 text-center"> <span className="text-white text-sm w-1/3 pb-1 bg-green-600 font-semibold px-2 rounded-full"> {c.status} </span> </td>
                           <td className="px-6 py-4 text-center"> {c.cedula} </td>
                           <td className="px-6 py-4 text-center"> {c.codigo} </td>
-                          <td onClick={() => Origins('editing', c)} className="px-6 py-4 text-center">Edit</td>
+                          <td onClick={() => Origins('editing', c)} className="px-6 py-4 text-center"><FontAwesomeIcon icon={faPenToSquare} /> </td>
                           <td className="px-6 py-4 text-center"> 
                             {c.status === 'Activo'? (
                              <buttom onClick={() => editStatus('Inactivo', c.id)}><FontAwesomeIcon icon={faRotateRight} /></buttom>  
@@ -283,7 +289,7 @@ export function Employee() {
       formData={formData}
       type={providen}
       handleChange={handleChange}
-      origins={"employee"}
+      origins={"Empleado"}
       dataSelect={dataCompanie}
     />
   </div>

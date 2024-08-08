@@ -9,7 +9,7 @@ const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origin
       <div className="flex items-center justify-center min-h-screen">
         <div className="bg-white p-8 rounded shadow-lg w-96">
           <div className="mb-4">
-            <h2 className="text-xl font-semibold mb-2">{(type === 'creating') ? 'Crear Elemento' : 'Editar Elemento'}</h2>
+            <h2 className="text-xl font-semibold mb-2">{(type === 'creating') ? `Crear ${origins}` : `Editar ${origins}`}</h2>
             <button
               onClick={onClose}
               className="absolute top-0 right-0 p-2 text-gray-500 hover:text-gray-700"
@@ -28,7 +28,7 @@ const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origin
             </button>
           </div>
           <form onSubmit={onSubmit}>
-            {origins === 'user' ? (
+            {origins === 'Usuario' ? (
               <>
                 <div className="mb-4">
                   <label htmlFor="username" className="block text-sm font-medium">
@@ -79,7 +79,7 @@ const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origin
                   )}
                 </div>
               </>
-            ) : origins === 'employee' ?  (
+            ) : origins === 'Empleado' ?  (
               <>
                 <div className="mb-4">
                   <label htmlFor="name" className="block text-sm font-medium">
@@ -176,7 +176,7 @@ const Modal = ({ isOpen, onClose, onSubmit, formData, handleChange, type, origin
                   )}
                 </div>
               </>
-            ) : origins === 'companie' ?
+            ) : origins === 'Compañia' ?
             (
             <>
                 <div className="mb-4">

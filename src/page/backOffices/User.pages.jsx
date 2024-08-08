@@ -8,6 +8,7 @@ import { useStateUser } from "../../utilitis/utils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faRotate, faRotateRight, faUser } from "@fortawesome/free-solid-svg-icons";
 import { DataUser } from "../../models/BackOffice.model";
+import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 export function UserPages() {
     const [userId, setUserId] = useState(''); 
@@ -177,18 +178,27 @@ export function UserPages() {
                       >
                           Crear Usuario
                       </button>
-    
+
                       <form class="flex items-center w-8/12 mx-auto m-2">   
-                          <label for="simple-search" class="sr-only">Search</label>
-                          <div class="relative w-full">
-                              <div class="absolute inset-y-0 start-[90%] flex items-center ps-3 pointer-events-none">
-                                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                                      <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                  </svg>
-                              </div>
-                              <input type="text" id="filter" value={filter} onChange={set_filter} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." required />
-                          </div>
-                      </form>
+                       <label for="simple-search" class="sr-only">Search</label>
+                       <div class="relative w-full">
+                         <input
+                           type="text"
+                           id="filter"
+                           value={filter}
+                           onChange={set_filter}
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           placeholder="Buscar..."
+                           required
+                         />
+                         <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                           <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                             <FontAwesomeIcon icon={faMagnifyingGlass} />
+                           </svg>
+                         </div>
+                       </div>
+                     </form>
+
                    </div>
                 </div>
 
@@ -223,7 +233,7 @@ export function UserPages() {
                                     </td>
                                     <td className="px-6 py-4 text-center"> {c.cedula}</td>
                                     <td className="px-6 py-4 text-center"> 
-                                        <buttom onClick={() => [Origins('editing', c), setUserId(c.id)]} className="text-purple-800 hover:underline">Edit</buttom> 
+                                        <buttom onClick={() => [Origins('editing', c), setUserId(c.id)]} className="text-purple-800 hover:underline"><FontAwesomeIcon icon={faPenToSquare} /></buttom> 
                                     </td>
                                     <td className="px-6 py-4 text-center"> 
                                          {c.status === 'Activo'? (
@@ -244,7 +254,7 @@ export function UserPages() {
                 formData={FormData}
                 type={providen}
                 handleChange={handleChange}
-                origins={"user"}
+                origins={"Usuario"}
             />
         </div>
     );
