@@ -23,6 +23,50 @@ export async function GetHistory(employee, from, to) {
     }
 }
 
+export async function GetHistoryByHours() {
+    try {
+        const url = new URL(`${config.apiUrl}/api/Backoffice/history/hours`);
+
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Error en la solicitud: " + response.status);
+        }
+
+        const responseData = await response.json();
+        return responseData;
+    } catch (error) {
+        throw new Error("Error en la solicitud: " + error.message);
+    }
+}
+
+export async function GetHistoryVis(employee, from, to) {
+    try {
+        const url = new URL(`${config.apiUrl}/api/Backoffice/History?employee=${employee}&from=${from }&to=${to}`);
+
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Error en la solicitud: " + response.status);
+        }
+
+        const responseData = await response.json();
+        return responseData;
+    } catch (error) {
+        throw new Error("Error en la solicitud: " + error.message);
+    }
+}
+
 export async function GetAgente(){
     try{
         const response =  await fetch(`${config.apiUrl}/api/Backoffice/agente`, {
