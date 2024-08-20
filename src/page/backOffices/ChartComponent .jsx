@@ -14,9 +14,8 @@ const ChartComponent = () => {
             try {
                 const data = await GetHistoryByHours();
                 set_data_current(data);
-                const uniqueCompanies = [...new Set(data.map(item => item.companieName))];
-                set_array_name(uniqueCompanies);
 
+                const uniqueCompanies = [...new Set(data.map(item => item.companieName))];
                 const hoursData = uniqueCompanies.map(company => {
                     const totalHours = data
                         .filter(item => item.companieName === company)
@@ -24,6 +23,7 @@ const ChartComponent = () => {
                     return totalHours;
                 });
 
+                set_array_name(uniqueCompanies);
                 setData(hoursData);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -31,14 +31,17 @@ const ChartComponent = () => {
         };
 
         fetchData(); 
-    }, []); 
+    }, []);
 
     useEffect(() => {
-        if (chartRef.current) {
-            const myChart = echarts.init(chartRef.current);
-            chartInstance.current = myChart;
+        if (array_name.length > 0 && data.length > 0 && chartRef.current) {
+            if (!chartInstance.current) {
+                chartInstance.current = echarts.init(chartRef.current);
+            }
 
-            const initialOption = {
+            const myChart = chartInstance.current;
+
+            const option = {
                 xAxis: {
                     type: 'value',
                     name: '',
@@ -75,13 +78,13 @@ const ChartComponent = () => {
                 animationEasingUpdate: 'linear'
             };
 
-            myChart.setOption(initialOption);
+            myChart.setOption(option);
 
             return () => {
                 myChart.dispose();
             };
         }
-    }, [array_name, data]); 
+    }, [array_name, data]);
 
     return (
         <div

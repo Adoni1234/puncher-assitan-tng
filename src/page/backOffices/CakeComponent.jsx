@@ -2,27 +2,27 @@ import React, { useEffect, useState } from 'react';
 import * as echarts from 'echarts';
 import { GetHistoryByHours } from '../../services/BackOffice';
 
-
 const CakeComponent = () => {
-
-  const[data, set_data] = useState([])
+  const [data, set_data] = useState([]);
   const [array_name, set_array_name] = useState([]);
-
 
   const FetchData = async () => {
     const datas = await GetHistoryByHours();
-    set_data(datas);
-    const formattedData = data.map(name => ({
+    const formattedData = datas.map(name => ({
       value: name.totalHours,
       name: name.companieName,
     }));
+    set_data(datas); // Aunque este estado no se está usando, lo mantengo por si es necesario en otra parte.
     set_array_name(formattedData);
-  }
+  };
     
-    useEffect(() => {
-      FetchData();
-      const chartDom = document.getElementById('main');
-      const myChart = echarts.init(chartDom);
+  useEffect(() => {
+    FetchData();
+  }, []);
+
+  useEffect(() => {
+    const chartDom = document.getElementById('main');
+    const myChart = echarts.init(chartDom);
 
     const option = {
       tooltip: {
@@ -65,10 +65,9 @@ const CakeComponent = () => {
     return () => {
       myChart.dispose();
     };
-  }, []);
+  }, [array_name]);
 
   return <div id="main" style={{ width: '100%', height: '400px' }} />;
 };
-
 
 export default CakeComponent;
