@@ -8,8 +8,17 @@ export function AccessPage() {
     const [debouncedValue, setDebouncedValue] = useState(code);
 
     useEffect(() => {
+      let modifiedCode = code;
+
+        const pattern = /^(.*)([A-Z])(\d+)$/;
+        const match = modifiedCode.match(pattern);
+        
+        if (match) {
+          modifiedCode = `${match[1]}-${match[2]}${match[3]}`;
+        }
+        
         const handler = setTimeout(() => {
-          setDebouncedValue(code);
+          setDebouncedValue(modifiedCode);
         }, 500); 
     
         return () => {
