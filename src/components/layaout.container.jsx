@@ -60,7 +60,7 @@ export function LayoutContainer() {
               )}
             </li>
             <li><a href="/access" className="hover:text-gray-200">Ponchador</a></li>
-            <li><a href="https://transnegrd.com" className="hover:text-gray-200">Contacto</a></li>
+            <li><a href="/contact" className="hover:text-gray-200">Contacto</a></li>
           </ul>
           <button onClick={handleClick} title='Cambiar Contraseña' className="relative inline-block mr-4">
             <FontAwesomeIcon icon={faLock} className="text-blue-500" />

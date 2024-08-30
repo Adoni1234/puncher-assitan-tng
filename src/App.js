@@ -10,6 +10,7 @@ import { UserPages } from './page/backOffices/User.pages';
 import { CodePage } from './page/backOffices/Code';
 import { CompaniePage } from './page/backOffices/CompaniePage';
 import RestorePage from './page/backOffices/RestorePasswordPage';
+import ContactUs from './page/backOffices/contact';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="code" element={<CodePage />}></Route>
         <Route path="companie" element={<CompaniePage />}></Route>
         <Route path="password/:id" element={<RestorePage />}></Route>
+        <Route path="contact" element={<ContactUs />}></Route>
       </Routes>
     </Router>
   </div>
