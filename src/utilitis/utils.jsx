@@ -105,3 +105,34 @@ export function TotalHoursHistory(data){
 
     return total_hours
 }
+
+export function TotalHoursByDay(data){
+    let total_hours = '';
+   console.log(data)
+    const TotalHours = (data) => {
+        const totalHours = data?.reduce((total, entry) => {
+            if (!entry.fecha_entrada || !entry.fecha_salida) return total;
+    
+            const formattedStartDateString = formatDateString(entry.fecha_entrada);
+            const formattedEndDateString = formatDateString(entry.fecha_salida);
+    
+            const startDate = parseDate(formattedStartDateString);
+            const endDate = parseDate(formattedEndDateString);
+    
+            if (!startDate || !endDate) {
+                console.error("Fecha inválida en la entrada:", entry)
+                return total;
+            }
+    
+            const differenceInMilliseconds = endDate - startDate;
+            const hours = differenceInMilliseconds / (1000 * 60 * 60);
+            return total + hours;
+        }, 0);
+
+        total_hours = (Math.floor(totalHours));
+    };
+
+    TotalHours(data);
+
+    return total_hours
+}

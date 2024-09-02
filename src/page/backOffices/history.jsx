@@ -3,7 +3,7 @@ import { LayoutContainer } from "../../components/layaout.container";
 import { GetAgente, GetHistory } from "../../services/BackOffice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { DateFormatUs, before_date, formatDateString, parseDate, useStateUser } from '../../utilitis/utils';
+import { DateFormatUs, TotalHoursByDay, before_date, formatDateString, parseDate, useStateUser } from '../../utilitis/utils';
 import MyDocument from '../../components/document';
 import { pdf } from '@react-pdf/renderer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -98,6 +98,7 @@ export function History() {
     
         fetchData();
     }, [filter, Profile]);
+    const totals = TotalHoursByDay
     
 
      const query = async () => {
@@ -161,11 +162,19 @@ export function History() {
                             <th scope="col" className="px-6 py-3 font-bold text-lg">
                                 Fecha De Salida
                             </th>
+                            <th scope="col" className="px-6 py-3 font-bold text-lg">
+                                Estado
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {data.map((a, index) => (
-                            <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <tr
+                                key={index}
+                                className={`${
+                                  TotalHoursByDay([{fecha_entrada: a.fecha_entrada, fecha_salida: a.fecha_salida}]) < 8 ? 'bg-red-300' : 'bg-white'
+                                } border-b dark:bg-gray-800 dark:border-gray-700  dark:hover:bg-gray-600`}
+                                >                               
                                 <th scope="row" className="px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
                                     {a.agentName}
                                 </th>
@@ -175,6 +184,12 @@ export function History() {
                                 <td className="px-6 py-4">
                                     {a.fecha_salida}
                                 </td>
+                                {TotalHoursByDay([{fecha_entrada: a.fecha_entrada, fecha_salida: a.fecha_salida}] )< 9 && (
+
+                                <td className="px-6 py-4 font-bold">
+                                    Jornada laboral no completada
+                                </td>
+                                )}
                             </tr>
                         ))}
                     </tbody>
