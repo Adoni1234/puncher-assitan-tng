@@ -20,10 +20,10 @@ export function Login() {
       try {
         const userData = await GetUser();
         setUser(userData);
+        console.log(userData)
         const SessionData = GetSessionStore();
        
         const valider_user = userData.filter((u) => u.username === SessionData[0])
-        
         if(valider_user.length > 0){
           window.location.href = "home";
         }

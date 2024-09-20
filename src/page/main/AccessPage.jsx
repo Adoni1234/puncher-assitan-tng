@@ -14,7 +14,7 @@ export function AccessPage() {
         const match = modifiedCode.match(pattern);
         
         if (match) {
-          modifiedCode = `${match[1]}-${match[2]}${match[3]}`;
+          modifiedCode = `${match[1]}${match[2]}${match[3]}`;
         }
         
         const handler = setTimeout(() => {
