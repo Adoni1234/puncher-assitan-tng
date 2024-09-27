@@ -1,9 +1,10 @@
 
 import config from '../config';
 
-export async function GetHistory(employee, from, to) {
+export async function GetHistory(employee,companie, from, to) {
+   
     try {
-        const url = new URL(`${config.apiUrl}/api/Backoffice/History?employee=${employee}&from=${from.toISOString()}&to=${to.toISOString()}`);
+        const url = new URL(`${config.apiUrl}/api/Backoffice/History?employee=${employee}&companie=${companie}&from=${from.toISOString()}&to=${to.toISOString()}`);
 
         const response = await fetch(url, {
             method: "GET",
