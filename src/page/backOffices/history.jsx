@@ -64,7 +64,7 @@ export function History() {
             const differenceInMilliseconds = endDate - startDate;
             const hours = differenceInMilliseconds / (1000 * 60 * 60);
             return total + hours;
-        }, 0);
+        },0);
 
         set_total_hours(Math.floor(totalHours));
     };
