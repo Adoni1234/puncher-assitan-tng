@@ -177,6 +177,9 @@ export function History() {
                                 Fecha De Salida
                             </th>
                             <th scope="col" className="px-6 py-3 font-bold text-lg">
+                               Hora Realizada
+                            </th>
+                            <th scope="col" className="px-6 py-3 font-bold text-lg">
                                 Estado
                             </th>
                         </tr>
@@ -197,6 +200,13 @@ export function History() {
                                 </td>
                                 <td className="px-6 py-4">
                                     {a.fecha_salida}
+                                </td>
+
+                                <td className="px-6 py-4 ">
+                                    <p className='text-center'>
+
+                                    {TotalHoursByDay([{fecha_entrada: a.fecha_entrada, fecha_salida: a.fecha_salida}] )}
+                                    </p>
                                 </td>
                                 {(TotalHoursByDay([{fecha_entrada: a.fecha_entrada, fecha_salida: a.fecha_salida}] ) < 8)? (
 
