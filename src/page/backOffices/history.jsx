@@ -7,7 +7,7 @@ import { DateFormatUs, TotalHoursByDay, before_date, formatDateString, parseDate
 import MyDocument from '../../components/document';
 import { pdf } from '@react-pdf/renderer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faClock, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
 export function History() {
     const [agente, setAgente] = useState([])
@@ -198,10 +198,17 @@ export function History() {
                                 <td className="px-6 py-4">
                                     {a.fecha_salida}
                                 </td>
-                                {TotalHoursByDay([{fecha_entrada: a.fecha_entrada, fecha_salida: a.fecha_salida}] )< 9 && (
+                                {(TotalHoursByDay([{fecha_entrada: a.fecha_entrada, fecha_salida: a.fecha_salida}] ) < 8)? (
 
                                 <td className="px-6 py-4 font-bold">
                                     Jornada laboral no completada
+                                </td>
+                                ) : (
+                                <td className="px-6 py-4 font-bold">
+                                    <div className='ml-[5%] space-x-2 text-lg'>
+                                    <FontAwesomeIcon icon={faClock} color='black'  />
+                                    <FontAwesomeIcon icon={faCheck} color='black'  />
+                                    </div>
                                 </td>
                                 )}
                             </tr>

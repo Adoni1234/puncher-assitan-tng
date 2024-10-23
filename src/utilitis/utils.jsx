@@ -108,7 +108,7 @@ export function TotalHoursHistory(data){
 
 export function TotalHoursByDay(data){
     let total_hours = '';
-   console.log(data)
+  
     const TotalHours = (data) => {
         const totalHours = data?.reduce((total, entry) => {
             if (!entry.fecha_entrada || !entry.fecha_salida) return total;
@@ -133,6 +133,6 @@ export function TotalHoursByDay(data){
     };
 
     TotalHours(data);
-
+    console.log(total_hours)
     return total_hours
 }
