@@ -89,7 +89,7 @@ const ChartComponent = () => {
     return (
         <div
             ref={chartRef}
-            style={{ width: '100%', height: '500px' }}
+            style={{ width: '550px', height: '500px' }}
         ></div>
     );
 };

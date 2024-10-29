@@ -67,7 +67,7 @@ const CakeComponent = () => {
     };
   }, [array_name]);
 
-  return <div id="main" style={{ width: '100%', height: '400px' }} />;
+  return <div id="main" style={{ width: '500px', height: '400px' }} />;
 };
 
 export default CakeComponent;

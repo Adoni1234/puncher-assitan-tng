@@ -1,6 +1,8 @@
 // src/MyDocument.js
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
+import { TotalHoursByDay } from '../utilitis/utils';
+
 
 
 const styles = StyleSheet.create({
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#8f8f8f'
   },
   tableCol: {
-    width: '33%',
+    width: '25%',
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: '#bfbfbf',
@@ -37,13 +39,14 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   image: {
-    margin: '2px auto',
-    width: '400px',
-    height: '180px'
+    marginRight: 10,
+    width: '150px',
+    height: '110px'
   },
   title: {
-    fontSize: "30px",
-    textAlign: "center"
+    fontSize: "35px",
+    textAlign: "center",
+    fontFamily: 'Helvetica-Oblique',
   },
 
 });
@@ -67,6 +70,9 @@ const MyDocument = ({ data, totalHours }) => (
         <View style={styles.tableCol}>
           <Text style={styles.tableCell}>Fecha salida</Text>
         </View>
+        <View style={styles.tableCol}>
+          <Text style={styles.tableCell}>Horas Realizadas</Text>
+        </View>
       </View>
       {data.map((c,index) => (
         <View style={styles.tableRow}>
@@ -78,6 +84,9 @@ const MyDocument = ({ data, totalHours }) => (
         </View>
         <View style={styles.tableCol}>
           <Text style={styles.tableCell}>{c.fecha_salida}</Text>
+        </View>
+        <View style={styles.tableCol}>
+          <Text style={styles.tableCell}>{TotalHoursByDay([{fecha_entrada: c.fecha_entrada, fecha_salida: c.fecha_salida}])}</Text>
         </View>
       </View>
        )) }
